@@ -1,6 +1,9 @@
 import React from 'react';
-import CanvasDraw from 'react-canvas-draw';
-import Canvas from './Canvas'
+import Canvas from './Canvas';
+import DrawingSubject from './DrawingSubject';
+import DrawingTools from './DrawingTools';
+import SubmitDrawing from './SubmitDrawing';
+
 
 function DrawingPage() {
   return (
@@ -12,7 +15,6 @@ function DrawingPage() {
       <DrawingTools />
       <Canvas />
       <SubmitDrawing />
-      
     </div>
   );
 }

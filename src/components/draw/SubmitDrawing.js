@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Canvas() {
+function SubmitDrawing() {
   return (
     <div>
 
@@ -8,4 +8,4 @@ function Canvas() {
   );
 }
 
-export default Canvas;
+export default SubmitDrawing;
