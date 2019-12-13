@@ -8,8 +8,11 @@ function DrawingPage() {
       <div>
       Drawing Canvas
       </div>
-      <input type="button" />
-      <CanvasDraw />
+      <DrawingSubject />
+      <DrawingTools />
+      <Canvas />
+      <SubmitDrawing />
+      
     </div>
   );
 }
