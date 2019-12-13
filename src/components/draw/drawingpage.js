@@ -1,8 +1,11 @@
 import React from 'react';
+import CanvasDraw from 'react-canvas-draw';
 
 function DrawingPage() {
   return (
-    <div>test</div>
+    <div>
+      <CanvasDraw />
+    </div>
   );
 }
 
