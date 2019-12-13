@@ -10,7 +10,7 @@ function Canvas() {
   const canvasWidth = '80%';
   const canvasHeight = '800px';
   const lazyRadius
-  const brushRadius = 10;
+  const brushRadius = 5;
   const brushColor = '#272727';
   return (
     <div>
