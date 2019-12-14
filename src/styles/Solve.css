@@ -1,0 +1,21 @@
+#solve {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+#solve #canvas-box {
+  width: 800px;
+  height: 600px;
+  background-color: cyan;
+}
+#solve #solve-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 800px;
+  height: 60px;
+  background-color: grey;
+}
