@@ -1,0 +1,11 @@
+#home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#home #home-title {
+  display: flex;
+  flex-direction: column;
+  font-size: 150px;
+}
