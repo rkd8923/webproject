@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import firebase from '../firebase';
 import { Link } from 'react-router-dom';
+import firebase from '../firebase';
 import firebaseDb from '../firebase.db';
 import '../styles/Login.css';
-
+import LoginForm from '../components/Login/LoginForm'
 
 const Login = () => {
   const [haveId, setHaveId] = useState(false);
@@ -58,7 +58,7 @@ const Login = () => {
           </div>)
         : (
           (!haveId) 
-          ? (<div>로그인폼이 필요</div>)
+          ? (<div> <LoginForm/> </div>)
           : (<Link to="/home">Home</Link>)
         )
       }
