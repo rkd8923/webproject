@@ -27,13 +27,12 @@ const pushUserData = async ({ id, name, score }) => {
   });
 };
 
-const pushImageData = async (drawing) => {
+const pushImageData = async (maker = 'rlatpdnjs', answer, drawing) => {
   const response = await fetch(`${firebaseURL}/paints.json`, {
     method: 'POST',
     body: JSON.stringify({
-      id: 'dumb621',
-      maker: 'dumbdumb',
-      answer: 'Picasso',
+      maker: `${maker}`,
+      answer: `${answer}`,
       starpoint: [],
       image: `${drawing}`,
     }),
