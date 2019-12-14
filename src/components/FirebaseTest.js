@@ -3,7 +3,7 @@ import React from 'react';
 const firebaseURL = 'https://fetchmind-6f8d6.firebaseio.com/';
 const FirebaseTest = () => {
   const getData = async () => {
-    const response = await fetch(`${firebaseURL}/user.json`, {
+    const response = await fetch(`${firebaseURL}/users.json`, {
       method: 'GET',
     });
     console.log(response);

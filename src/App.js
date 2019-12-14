@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import FirebaseTest from './components/FirebaseTest';
+import firebase from './firebase';
+import firebaseStorage from './firebase.storage';
+
 
 
 
 
 function App() {
+  const [user, setUser] = useState();
+
+  firebase.auth().onAuthStateChanged((user) => {
+    console.log('test', user);
+    if (user) {
+      setUser(user);
+      console.log('user', user);
+    } else {
+      setUser();
+      console.log('loginX');
+    }
+  })
+
   let time = 0;
   setInterval (() => {
     const timer = document.getElementById('timer');
@@ -24,8 +40,8 @@ function App() {
   const onGiveup = (e) =>{
     e.preventDefault();
     
-    window.open('https://www.naver.com', 'window', 'height : 100px');
-    
+    const giveupWin = window.open('', 'window', 'width=100, height=200, left= 650, top=300');
+    giveupWin.document.write("<p>12321</p>");
   }
 
   return (
