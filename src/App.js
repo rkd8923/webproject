@@ -6,10 +6,6 @@ import FirebaseTest from './components/FirebaseTest';
 import firebase from './firebase';
 import firebaseStorage from './firebase.storage';
 
-
-
-
-
 function App() {
   const [user, setUser] = useState();
 
@@ -47,6 +43,9 @@ function App() {
   }
 
   return (
+<<<<<<< HEAD
+    <div className="App">
+=======
     <div>
       <div style = {{textAlign : 'center'}}>
         <img src= {require('./20101209012239.jpg')} alt ='cy' />
@@ -65,6 +64,7 @@ function App() {
           <input name = 'giveup' type = 'submit' value= '포기' style = {{marginRight : '100px'}}/>
         </form>
       
+>>>>>>> 3742250c98804b3f45a86ad1bc039f27eeaf897c
     </div>
   );
 }
