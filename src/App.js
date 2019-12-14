@@ -6,10 +6,11 @@ import './styles/App.css';
 import DrawingPage from './pages/Drawingpage';
 
 function App() {
+  // const [user, setUser] = useState();
 
   return (
     <BrowserRouter>
-      <Route exact path="/" component={Login} />
+      <Route exact path="/" component={Login}/>
       <Route path="/home" component={Home} />
       <Route path="/Drawingpage" component={Drawingpage} />
       <Route path="/Solve" component={Solve} />

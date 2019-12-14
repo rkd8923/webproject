@@ -10,7 +10,6 @@ const canvasHeight = '800px';
 const lazyRadius = 10;
 const brushRadius = 3;
 let currentDrawing;
-let loadableCanvas;
 
 function Canvas() {
   const [brushColor, setBrushColor] = useState('#000000');
