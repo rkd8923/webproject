@@ -9,13 +9,13 @@ const getImageData = async () => {
 };
 
 const pushImageData = async (drawing) => {
-  const response = await fetch(`${firebaseURL}/paints.json`, {
+  const response = await fetch(`${firebaseURL}/paints`, {
     method: 'POST',
-    body: `drawing=${drawing}`,
+    body: JSON.stringify(drawing),
   });
 };
 
 export default {
-  getImageData, pushImageData,
-}
-;
+  getImageData,
+  pushImageData,
+};
