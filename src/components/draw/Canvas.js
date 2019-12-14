@@ -80,6 +80,7 @@ function Canvas() {
     <div>
       <DrawingTools />
       <CanvasDraw
+        hidegrids
         ref={canvasDraw => (saveableCanvas = canvasDraw)}
         brushColor={brushColor}
         brushRadius={brushRadius}
@@ -87,7 +88,7 @@ function Canvas() {
         canvasHeight={canvasHeight}
         lazyRadius={lazyRadius}
         DrawingTools={DrawingTools}
-        catenaryColor= "#0a0302"
+        imgSrc="../../../public/bg.png"
       />
       
     </div>
