@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import AnswerPop from '../components/solve/answerPop.js'
 import firebaseDb from '../firebase.db.js';
 import { database } from 'firebase';
@@ -6,17 +6,16 @@ import { database } from 'firebase';
 
 function Solve() {
   const [paints, setPaints] = useState([]);
-  let time = 0;
-  setInterval (() => {
-    const timer = document.getElementById('timer');
-    time++;
-    timer.textContent = `Time: ${time}`;
-  }, 1000)
-  const getImageData = async () => {
-    const paints = await firebaseDb.getImageData();
-    setPaints(Object.values(paints));
-    console.log('paints', paints);
-  }
+  // let time = 0;
+  // setInterval (() => {
+  //   const timer = document.getElementById('timer');
+  //   time++;
+  //   timer.textContent = `Time: ${time}`;
+  // }, 1000)
+  const getImageData = useCallback(async () => {
+    const response = await firebaseDb.getImageData();
+    setPaints(Object.values(response));
+  }, [paints]);
 
   const onAnswer = (e) =>{
     e.preventDefault();
@@ -33,7 +32,10 @@ function Solve() {
   } 
   useEffect(() => {
     getImageData();
-  }, [getImageData])
+  }, [])
+  useEffect(() => {
+    console.log(paints);
+  }, [paints])
   return (
     <div>
       <div style = {{textAlign : 'center'}}>
@@ -41,9 +43,6 @@ function Solve() {
       </div>
       <div id = 'timer' style = {{textAlign : 'right',  marginRight : '100px'}}>Time: 0
         </div>
-
-
-
         <form onSubmit={onAnswer} style = {{textAlign : 'center'}}>
           <input type = 'text' className = 'answer' />
           <input type = 'submit' value='입력' />
