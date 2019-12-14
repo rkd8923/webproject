@@ -1,8 +1,8 @@
 import React from 'react';
-import Canvas from './Canvas';
-import DrawingSubject from './DrawingSubject';
-import DrawingTools from './DrawingTools';
-import SubmitDrawing from './SubmitDrawing';
+import Canvas from '../components/Canvas';
+import DrawingSubject from '../components/DrawingSubject';
+import DrawingTools from '../components/DrawingTools';
+import SubmitDrawing from '../components/SubmitDrawing';
 
 
 function DrawingPage() {
