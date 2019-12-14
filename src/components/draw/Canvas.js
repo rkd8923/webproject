@@ -9,7 +9,7 @@ const canvasWidth = '80%';
 const canvasHeight = '800px';
 const lazyRadius = 10;
 const brushRadius = 3;
-let saveableCanvas;
+let currentDrawing;
 
 function Canvas() {
   const [brushColor, setBrushColor] = useState('#000000');
@@ -61,7 +61,7 @@ function Canvas() {
           value="undo"
           onClick={() => {
             // e.preventdefault();
-            saveableCanvas.undo();
+            currentDrawing.undo();
             console.log("undo");
           }}
         />
@@ -70,8 +70,9 @@ function Canvas() {
           value="save"
           onClick={() => {
             // e.preventdefault();
-            saveableCanvas.getSaveData();
-            console.log(saveableCanvas);
+            currentDrawing.getSaveData();
+            // pushImageData(currentDrawing.)
+            console.log(currentDrawing);
           }}
         />
       </div>
@@ -88,7 +89,7 @@ function Canvas() {
       <DrawingTools />
       <CanvasDraw
         hidegrids
-        ref={canvasDraw => (saveableCanvas = canvasDraw)}
+        ref={canvasDraw => (currentDrawing = canvasDraw)}
         brushColor={brushColor}
         brushRadius={brushRadius}
         canvasWidth={canvasWidth}
