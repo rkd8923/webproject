@@ -7,14 +7,7 @@ import DrawingPage from './pages/Drawingpage';
 
 function App() {
   // const [user, setUser] = useState();
-  // firebase.auth().onAuthStateChanged((user) => {
-  //   console.log(firebase.auth().currentUser);
-  //   if (user) {
-  //     setUser(user);
-  //   } else {
-  //     setUser();
-  //   }
-  // })
+
   return (
     <BrowserRouter>
       <Route exact path="/" component={Login}/>
