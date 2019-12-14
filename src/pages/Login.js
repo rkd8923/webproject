@@ -13,6 +13,13 @@ const Login = () => {
   const logout = async () => {
     firebase.auth().signOut();
   }
+  const pushUserData = async () => {
+    firebaseDb.pushUserData({
+      id: 'testemail',
+      name: 'testname',
+      score: 0,
+    });
+  }
 
   // useEffect( async () => {
   //   const users = await firebaseDb.getUserData();
@@ -42,7 +49,7 @@ const Login = () => {
       </div>
 
       <div>
-        <button onClick={firebaseDb.pushUserData({id: 'testemail', name: 'testname', score: 0})}>push</button>
+        <button onClick={pushUserData}>push</button>
       </div>
     </div>
   );
