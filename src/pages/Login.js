@@ -37,6 +37,7 @@ const Login = () => {
     if (currentUser) {
       const currentUserId = currentUser.email;
       const usersData = Object.values(users);
+      localStorage.setItem('userEmail', currentUserId);
       usersData.forEach((user) => {
         if (user.id === currentUserId) {
           setHaveId(true);
