@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CanvasDraw from 'react-canvas-draw';
+// import CanvasDraw from 'react-canvas-draw';
 import firebaseDb from '../../firebase.db';
 
 // class DrawingSettings {
@@ -97,7 +97,7 @@ function Canvas() {
   return (
     <div>
       <DrawingTools />
-      <CanvasDraw
+      {/* <CanvasDraw
         hideGrid
         ref={canvasDraw => (currentDrawing = canvasDraw)}
         brushColor={brushColor}
@@ -106,7 +106,7 @@ function Canvas() {
         canvasHeight={canvasHeight}
         lazyRadius={lazyRadius}
         DrawingTools={DrawingTools}
-      />
+      /> */}
     </div>
   );
 }
