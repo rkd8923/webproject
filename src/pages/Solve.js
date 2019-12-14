@@ -21,7 +21,8 @@ function Solve() {
   const onAnswer = (e) =>{
     e.preventDefault();
     
-    window.open('src/components/solve/answerPop.html', 'window', 'width=100, height=200, left= 650, top=300');
+    const answerWin = window.open('', 'window', 'width=100, height=200, left= 650, top=300');
+    answerWin.document.write("<div> <p>축하합니다</p> /br <form name='continue'> <input type='submit' value='다음 문제로'/> </form> <form name='stop'> <input type='submit' value='메인메뉴'> </form></div>")
   }
 
   const onGiveup = (e) =>{
