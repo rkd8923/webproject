@@ -5,14 +5,14 @@ import '../styles/Home.css';
 
 const Home = (props) => {
   const [myData, setMyData] = useState();
-  const set = async () => {
+  const setMyDatas = async () => {
     if (props.user) {
       const my = await firebaseDb.getMyData(props.user.email);
       setMyData(my);
     }
   }
   useEffect(() => {
-    set();
+    setMyDatas();
   }, [props.user]);
   useEffect(() => {
     console.log('Home', myData);
