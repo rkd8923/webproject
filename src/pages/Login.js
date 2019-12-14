@@ -13,20 +13,20 @@ const Login = () => {
     firebase.auth().signOut();
   }
 
-  useEffect( async () => {
-    const users = await firebaseDb.getUserData();
-    const currentUser = firebase.auth().currentUser;
-    console.log(currentUser.email);
-      // if (currentUser) {
-      //   if(currentUser.email === users.testUser.id){
-      //       //홈
-      //   }else{
-          
-      //   }
-      // } else {
-      //   // No user is signed in.
-      // }
-  }, [])
+  // useEffect( async () => {
+  //   const users = await firebaseDb.getUserData();
+  //   const currentUser = firebase.auth().currentUser;
+  //   console.log(currentUser.email);
+  //     if (currentUser.email) {
+  //       if(currentUser.email === users.testUser.id){
+  //         //홈
+  //       }else{
+  //         //유저등록
+  //       }
+  //     } else {
+  //       //로그인필요
+  //     }
+  // }, [])
 
   return (
     <div>
@@ -36,6 +36,10 @@ const Login = () => {
     
       <div>
         <button onClick={logout}>logout</button>
+      </div>
+
+      <div>
+        <button onClick={firebaseDb.pushUserData({id: 'testemail', name: 'testname', score: 0})}>push</button>
       </div>
     </div>
   );
