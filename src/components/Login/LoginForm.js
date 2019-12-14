@@ -1,21 +1,32 @@
-import React, {Component} from 'react'; 
+import React from 'react'; 
 import '../styles/LoginForm.css';
 
-function Login() {
+function LoginForm() {
     function DrawLoginForm() {
         return(
             <form className="LoginForm"> 
                 <div className="LogoBox">
-                    CATCH MIND
+                    닉네임 생성
                 </div>
                 <div className="Content">
-                    <div className="ContentLoginBtn">
-                        <button className="LoginBtn" type="button" onClick={this.handleOnClick}> Login </button> 
+                    <div className="ContentNickname">
+                        <input 
+                        placeholder="닉네임 입력"
+                        />
                     </div>
-                </div>
+                    </div>
+                    <div> className="CheckNickname">
+                        <button type="submit">중복확인</button>
+                    </div>
             </form> 
         ); 
 
-    } 
+    }
+    return (
+        <div>
+        <DrawLoginForm/>
+        </div>
+    )
 }
-export default Login;
+
+export default LoginForm;

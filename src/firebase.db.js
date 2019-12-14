@@ -16,7 +16,7 @@ const getUserData = async () => {
   return data;
 }
 
-const pushUserData = async ({id, name, score}) => {
+const pushUserData = async (id, name, score) => {
   const response = await fetch(`${firebaseURL}/users.json`, {
     method: 'POST',
     body: JSON.stringify({
