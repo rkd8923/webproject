@@ -55,7 +55,7 @@ function Canvas() {
           type="button"
           onClick={() => {
             // e.preventdefault();
-            saveableCanvas.loadSaveData();
+            saveableCanvas.undo();
             console.log("undo");
           }}
         />
@@ -87,6 +87,7 @@ function Canvas() {
         canvasHeight={canvasHeight}
         lazyRadius={lazyRadius}
         DrawingTools={DrawingTools}
+        catenaryColor= "#0a0302"
       />
       
     </div>
