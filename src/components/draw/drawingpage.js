@@ -1,10 +1,20 @@
 import React from 'react';
-import CanvasDraw from 'react-canvas-draw';
+import Canvas from './Canvas';
+import DrawingSubject from './DrawingSubject';
+import DrawingTools from './DrawingTools';
+import SubmitDrawing from './SubmitDrawing';
 
 
 function DrawingPage() {
   return (
-    <CanvasDraw id="drawing-canvas" />
+    <div>
+      <div>
+      Drawing Canvas
+      </div>
+      <DrawingSubject />
+      <Canvas />
+      <SubmitDrawing />
+    </div>
   );
 }
 

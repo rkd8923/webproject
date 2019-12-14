@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './App.css';
+import DrawingPage from './components/draw/DrawingPage';
+import React, { useState, useEffect } from 'react';
 import FirebaseTest from './components/FirebaseTest';
 import firebase from './firebase';
 import firebaseStorage from './firebase.storage';
