@@ -55,7 +55,7 @@ function Canvas() {
           type="button"
           onClick={() => {
             // e.preventdefault();
-            saveableCanvas.undo();
+            saveableCanvas.loadSaveData();
             console.log("undo");
           }}
         />
@@ -64,12 +64,18 @@ function Canvas() {
           onClick={() => {
             // e.preventdefault();
             saveableCanvas.getSaveData();
-            console.log("saved");
+            console.log(saveableCanvas);
           }}
         />
       </div>
     );
   }
+  // function submitDrawing (e) {
+  //   e.preventdefault();
+  //   fetch{
+
+  //   }
+  // }
   return (
     <div>
       <DrawingTools />
@@ -82,6 +88,7 @@ function Canvas() {
         lazyRadius={lazyRadius}
         DrawingTools={DrawingTools}
       />
+      
     </div>
   );
 }
