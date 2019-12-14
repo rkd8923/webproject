@@ -12,7 +12,7 @@ function DrawingPage() {
       Drawing Canvas
       </div>
       <DrawingSubject />
-      <Canvas Drawingtools={DrawingTools} />
+      <Canvas />
       <SubmitDrawing />
     </div>
   );

@@ -9,7 +9,7 @@ const canvasWidth = '80%';
 const canvasHeight = '800px';
 const lazyRadius = 10;
 const brushRadius = 3;
-
+let saveableCanvas;
 
 function Canvas() {
   const [brushColor, setBrushColor] = useState('#000000');
@@ -24,31 +24,47 @@ function Canvas() {
           }}
         />
         <input
-          id="red"
+          id="green"
           type="button"
           onClick={() => {
-            setBrushColor('#e62b12');
+            setBrushColor('#32a628');
           }}
         />
         <input
-          id="red"
+          id="blue"
           type="button"
           onClick={() => {
-            setBrushColor('#e62b12');
+            setBrushColor('#0022ff');
           }}
         />
         <input
-          id="red"
+          id="yellow"
           type="button"
           onClick={() => {
-            setBrushColor('#e62b12');
+            setBrushColor('#ffea00');
           }}
         />
         <input
-          id="red"
+          id="black"
           type="button"
           onClick={() => {
-            setBrushColor('#e62b12');
+            setBrushColor('#000000');
+          }}
+        />
+        <input
+          type="button"
+          onClick={() => {
+            // e.preventdefault();
+            saveableCanvas.undo();
+            console.log("undo");
+          }}
+        />
+        <input
+          type="button"
+          onClick={() => {
+            // e.preventdefault();
+            saveableCanvas.getSaveData();
+            console.log("saved");
           }}
         />
       </div>
@@ -58,6 +74,7 @@ function Canvas() {
     <div>
       <DrawingTools />
       <CanvasDraw
+        ref={canvasDraw => (saveableCanvas = canvasDraw)}
         brushColor={brushColor}
         brushRadius={brushRadius}
         canvasWidth={canvasWidth}
