@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CanvasDraw from 'react-canvas-draw';
-
+import firebaseDb from '../../firebase.db';
 
 // class DrawingSettings {
 //   this.bru
@@ -9,7 +9,7 @@ const canvasWidth = '80%';
 const canvasHeight = '800px';
 const lazyRadius = 10;
 const brushRadius = 3;
-let saveableCanvas;
+let currentDrawing;
 
 function Canvas() {
   const [brushColor, setBrushColor] = useState('#000000');
@@ -18,6 +18,7 @@ function Canvas() {
       <div>
         <input
           id="red"
+          value="red"
           type="button"
           onClick={() => {
             setBrushColor('#e62b12');
@@ -25,6 +26,7 @@ function Canvas() {
         />
         <input
           id="green"
+          value="green"
           type="button"
           onClick={() => {
             setBrushColor('#32a628');
@@ -32,6 +34,7 @@ function Canvas() {
         />
         <input
           id="blue"
+          value="blue"
           type="button"
           onClick={() => {
             setBrushColor('#0022ff');
@@ -39,6 +42,7 @@ function Canvas() {
         />
         <input
           id="yellow"
+          value="yellow"
           type="button"
           onClick={() => {
             setBrushColor('#ffea00');
@@ -46,6 +50,7 @@ function Canvas() {
         />
         <input
           id="black"
+          value="black"
           type="button"
           onClick={() => {
             setBrushColor('#000000');
@@ -53,18 +58,31 @@ function Canvas() {
         />
         <input
           type="button"
+          value="undo"
           onClick={() => {
             // e.preventdefault();
-            saveableCanvas.undo();
+            currentDrawing.undo();
             console.log("undo");
           }}
         />
         <input
           type="button"
+          value="save"
           onClick={() => {
             // e.preventdefault();
-            saveableCanvas.getSaveData();
-            console.log(saveableCanvas);
+            currentDrawing.getSaveData();
+            //pushImageData(currentDrawing.getSaveData());
+            console.log(currentDrawing.getSaveData());
+          }}
+        />
+        <input
+          type="button"
+          value="save"
+          onClick={() => {
+            // e.preventdefault();
+            currentDrawing.getSaveData();
+            firebaseDb.pushImageData(currentDrawing.getSaveData());
+            console.log(currentDrawing.getSaveData());
           }}
         />
       </div>
@@ -80,16 +98,15 @@ function Canvas() {
     <div>
       <DrawingTools />
       <CanvasDraw
-        ref={canvasDraw => (saveableCanvas = canvasDraw)}
+        hideGrid
+        ref={canvasDraw => (currentDrawing = canvasDraw)}
         brushColor={brushColor}
         brushRadius={brushRadius}
         canvasWidth={canvasWidth}
         canvasHeight={canvasHeight}
         lazyRadius={lazyRadius}
         DrawingTools={DrawingTools}
-        catenaryColor= "#0a0302"
       />
-      
     </div>
   );
 }
