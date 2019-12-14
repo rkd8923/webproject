@@ -10,6 +10,7 @@ const canvasHeight = '800px';
 const lazyRadius = 10;
 const brushRadius = 3;
 let currentDrawing;
+let image;
 
 function Canvas() {
   const [brushColor, setBrushColor] = useState('#000000');
@@ -75,18 +76,32 @@ function Canvas() {
             console.log('undo');
           }}
         />
+        <input
+          type="button"
+          value="save"
+          onClick={() => {
+            image = currentDrawing.getSaveData();
+            console.log(image);
+          }}
+        />
       </div>
     );
   }
 
+  const onSend = () => {
+    image = currentDrawing.getSaveData();
+    const userEmail = localStorage.getItem('userEmail');
+    console.log(userEmail, answer, image);
+    firebaseDb.pushImageData(userEmail, answer, image);
+  };
+
   const SubmitDrawing = () => {
-    const onSend = (e) => {
-      e.preventdefault();
-      const image = currentDrawing.getSaveData();
-      firebaseDb.pushImageData('yoyo', '1722', answer, image);
-    };
     return (
-      <form onSubmit={onSend}>
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        onSend();
+      }}
+      >
         <input type="text" value={answer} onChange={(e) => setAnswer(e.target.value)} />
         <input
           type="submit"
@@ -107,6 +122,7 @@ function Canvas() {
         canvasWidth={canvasWidth}
         canvasHeight={canvasHeight}
         lazyRadius={lazyRadius}
+        DrawingTools={DrawingTools}
       />
       <SubmitDrawing />
     </div>
