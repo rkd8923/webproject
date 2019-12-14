@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import firebase from './firebase';
+import React from 'react';
+import firebase from '../firebase';
 import '../styles/Login.css';
 
-const Login = (props) => {
+const Login = () => {
   const googleLogin = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider);
@@ -12,7 +12,8 @@ const Login = (props) => {
   }
 
   return (
-    <div id="login-box">
+    <div>
+      <button onClick={googleLogin}>google</button>
     </div>
   );
 }  
