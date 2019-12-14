@@ -18,6 +18,7 @@ function Canvas() {
       <div>
         <input
           id="red"
+          value="red"
           type="button"
           onClick={() => {
             setBrushColor('#e62b12');
@@ -25,6 +26,7 @@ function Canvas() {
         />
         <input
           id="green"
+          value="green"
           type="button"
           onClick={() => {
             setBrushColor('#32a628');
@@ -32,6 +34,7 @@ function Canvas() {
         />
         <input
           id="blue"
+          value="blue"
           type="button"
           onClick={() => {
             setBrushColor('#0022ff');
@@ -39,6 +42,7 @@ function Canvas() {
         />
         <input
           id="yellow"
+          value="yellow"
           type="button"
           onClick={() => {
             setBrushColor('#ffea00');
@@ -46,6 +50,7 @@ function Canvas() {
         />
         <input
           id="black"
+          value="black"
           type="button"
           onClick={() => {
             setBrushColor('#000000');
@@ -53,6 +58,7 @@ function Canvas() {
         />
         <input
           type="button"
+          value="undo"
           onClick={() => {
             // e.preventdefault();
             saveableCanvas.undo();
@@ -61,6 +67,7 @@ function Canvas() {
         />
         <input
           type="button"
+          value="save"
           onClick={() => {
             // e.preventdefault();
             saveableCanvas.getSaveData();
