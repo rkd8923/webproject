@@ -1,4 +1,4 @@
-const firebaseURL = 'https://fetchmind-6f8d6.firebaseio.com/';
+const firebaseURL = 'https://fetchmind-6f8d6.firebaseio.com';
 
 const getImageData = async () => {
   const response = await fetch(`${firebaseURL}/paints.json`, {
