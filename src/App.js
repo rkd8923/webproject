@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
 import FirebaseTest from './components/FirebaseTest';
 import firebase from './firebase';
+import firebaseStorage from './firebase.storage';
 function App() {
   const [user, setUser] = useState();
   const googleLogin = async () => {
@@ -22,6 +22,7 @@ function App() {
       console.log('loginX');
     }
   })
+
   return (
     <div id="App">
       <FirebaseTest />
