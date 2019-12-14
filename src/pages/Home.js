@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import firebaseDb from '../firebase.db';
 import '../styles/Home.css';
-const Home = () => {
+
+const Home = (props) => {
+  const [myData, setMyData] = useState();
+  const set = async () => {
+    if (props.user) {
+      const my = await firebaseDb.getMyData(props.user.email);
+      setMyData(my);
+    }
+  }
+  useEffect(() => {
+    set();
+  }, [props.user]);
+  useEffect(() => {
+    console.log('Home', myData);
+  }, [myData]);
   return (
     <div id="home">
       <div id="home-title">
@@ -9,9 +24,16 @@ const Home = () => {
       </div>
       <div id="main-box">
         <div id="left-box">
-          <div>UserName</div>
-          <div>UserScore</div>
-          <div>Problems</div>
+          {
+            (myData)
+            ? (
+              <div>
+                <div>{myData.name}</div>
+                <div>{myData.score}</div>
+              </div>
+            )
+            : (<div>Loading...</div>)
+          }
         </div>
         <div id="right-box">
           <Link to="/drawingpage">drawing</Link>

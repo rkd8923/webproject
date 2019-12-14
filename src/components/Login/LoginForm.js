@@ -1,53 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import firebaseDb from '../../firebase.db';
+import '../../styles/LoginForm.css';
 
-const pushUserData = async (nickname) => {
-  firebaseDb.pushUserData({
-    id: localStorage.getItem('userEmail'),
-    name: nickname,
-    score: 0,
-  });
-}
-class LoginForm extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      nickname: "",
-    };
-  }
-  handleNickname = e => {
+const LoginForm = (props) => {
+  const [nickName, setNickName] = useState('');
+  const handleNickname = (e) => {
     e.preventDefault();
-    this.setState({
-      nickname: e.target.value
-    });
+    setNickName(e.target.value);
   };
-
-  render() {
-    return (
-      <form className="LoginForm"> 
-        <div className="LoginFormTitle">
-          <h1>닉네임 생성</h1>
-        </div>
-        <div className="Content">
-          <div className="ContentNickname">
-            닉네임 : <input 
-              placeholder="닉네임 입력"
-              value={this.state.nickname}
-              onChange={this.handleNickname}
-            />
-          </div>
-          <div className="CreateNickname">
-            <input
+  const pushUserData = async () => {
+    console.log('loginForm', props.user, nickName);
+    if (props.user && nickName !== '') {
+      firebaseDb.pushUserData({
+        id: props.user.email,
+        name: nickName,
+        score: 0,
+        solved: [],
+      });
+      props.setHaveId(true);
+    }
+  }
+  return (
+    <div className="login-form-box">
+      <div className="LoginFormTitle">
+        <h1>닉네임 생성</h1>
+      </div>
+        <input
+          className="login-input"
+          placeholder="닉네임 입력"
+          value={nickName}
+          onChange={handleNickname}
+        />
+        <div className="CreateNickname">
+          <input
+            className="login-button"
             type="button"
             value="생성"
-            onClick= {() => {
-              pushUserData(this.state.nickname);
-            }}/>
-          </div>
+            onClick={()=>pushUserData()}
+          />
         </div>
-      </form>
-    );
-  }
+    </div>
+  );
+
  }
 export default LoginForm;

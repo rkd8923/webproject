@@ -1,44 +1,23 @@
-.LoginForm {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.login-form-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 360px;
+    background-color: white;
+    height: 200px;
+    border-radius: 8px;
 }
-
-.LogoBox {
-    background-color: #A593E0;
-    width: 20rem;
-    height: 5rem;
-    border-color: white;
+.login-input {
+    width: 180px;
+    height: 30px;
+    font-size: 18px;
+    margin-bottom: 12px;
 }
-
-.LoginHeader {
+.login-button {
+    width: 60px;
+    height: 30px;
+    border: 0px;
+    background-color: #64b5f6;
     color: white;
-    position: absolute;
-    left: 3.5rem;
-}
-
-.Content{
-    color:#566270;
-    background-color: #E0E3DA;
-    padding: 1rem;
-    float: left;
-    width: 12rem;
-}
-
-.LoginBtn{
-    background-color: #566270;
-    font-size: 15px;
-    padding: 0.4rem;
-    color: white;
-}
-
-.ContentLoginBtn{
-    background-color: #E0E3DA;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-}
-
-.form-control {
-    width: 9rem;
+    cursor: pointer;
 }

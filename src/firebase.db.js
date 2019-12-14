@@ -16,6 +16,22 @@ const getUserData = async () => {
   return data;
 }
 
+const getMyData = async (email) => {
+  let result;
+  const response = await fetch(`${firebaseURL}/users.json`, {
+    method: 'GET',
+  });
+  const data= await response.json();
+  const dataArray = Object.values(data);
+  dataArray.forEach((user) => {
+    if (user.id === email) {
+      result = user;
+    }
+  });
+  return result;
+}
+
+
 const pushUserData = async ({ id, name, score }) => {
   const response = await fetch(`${firebaseURL}/users.json`, {
     method: 'POST',
@@ -42,6 +58,7 @@ const pushImageData = async (maker = 'rlatpdnjs', answer, drawing) => {
 export default {
   getImageData,
   getUserData,
+  getMyData,
   pushImageData,
   pushUserData,
 };

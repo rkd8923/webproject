@@ -36,3 +36,14 @@
 .google-logo {
   margin-right: 16px;
 }
+.enter-button {
+  width: 360px;
+  height: 80px;
+  background-color: #64b5f6;
+  border: 0px;
+  border-radius: 8px;
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+}
