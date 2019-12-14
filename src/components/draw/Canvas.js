@@ -79,20 +79,24 @@ function Canvas() {
       </div>
     );
   }
-  function submitDrawing(e) {
+
+  const SubmitDrawing = () => {
+    const onSend = (e) => {
+      e.preventdefault();
+      const image = currentDrawing.getSaveData();
+      firebaseDb.pushImageData('yoyo', '1722', answer, image);
+    };
     return (
-      <div>
+      <form onSubmit={onSend}>
+        <input type="text" value={answer} onChange={(e) => setAnswer(e.target.value)} />
         <input
-          type="button"
+          type="submit"
           value="save"
-          onClick={() => {
-            firebaseDb.pushImageData(currentDrawing.getSaveData());
-            console.log(temp);
-          }}
         />
-      </div>
+      </form>
     );
-  }
+  };
+
   return (
     <div>
       <DrawingTools />
@@ -105,6 +109,7 @@ function Canvas() {
         canvasHeight={canvasHeight}
         lazyRadius={lazyRadius}
       />
+      <SubmitDrawing />
     </div>
   );
 }
