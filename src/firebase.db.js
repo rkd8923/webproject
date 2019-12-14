@@ -7,6 +7,16 @@ const getImageData = async () => {
   const data = await response.json();
   return data; 
 }
+
+const getUserData = async () => {
+  const response = await fetch(`${firebaseURL}/users.json`, {
+    method: 'GET',
+  });
+  const data= await response.json();
+  return data;
+}
+
 export default {
   getImageData,
+  getUserData,
 }
