@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import firebase from './firebase';
-import Login from './pages/Login';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { Home, Login, Drawingpage, Solve } from './pages';
 import './styles/App.css';
 
 function App() {
@@ -16,10 +17,12 @@ function App() {
   })
 
   return (
-    <div>
-      <span>TEST</span>
-      <Login />
-    </div>
+    <BrowserRouter>
+      <Route exact path="/" component={Login} />
+      <Route path="/home" component={Home} />
+      <Route path="/Drawingpage" component={Drawingpage} />
+      <Route path="/Solve" component={Solve} />
+    </BrowserRouter>
   );
 }
 
