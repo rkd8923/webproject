@@ -9,9 +9,16 @@ const getImageData = async () => {
 };
 
 const pushImageData = async (drawing) => {
-  const response = await fetch(`${firebaseURL}/paints`, {
+  const response = await fetch(`${firebaseURL}/paints.json`, {
     method: 'POST',
-    body: JSON.stringify(drawing),
+    header:
+    body: JSON.stringify({
+      id: 'dumb621',
+      maker: 'dumbdumb',
+      answer: 'Picasso',
+      starpoint: [],
+      image: `${drawing}`,
+    }),
   });
 };
 
