@@ -1,5 +1,6 @@
 import React from 'react';
 import firebase from '../firebase';
+import { Link } from 'react-router-dom';
 import '../styles/Login.css';
 
 const Login = () => {
@@ -14,6 +15,7 @@ const Login = () => {
   return (
     <div>
       <button onClick={googleLogin}>google</button>
+      <Link to="/home">Home</Link>
     </div>
   );
 }  
