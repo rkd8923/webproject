@@ -38,7 +38,6 @@ const Login = () => {
 
   return (
     <div>
-      <button onClick={googleLogin}>google</button>
       <Link to="/home">Home</Link>
       <div>
         <button onClick={googleLogin}>google</button>
