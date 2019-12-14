@@ -1,7 +1,6 @@
 import React from 'react';
 import Canvas from '../components/draw/Canvas';
 import DrawingSubject from '../components/draw/DrawingSubject';
-import DrawingTools from '../components/draw/DrawingTools';
 import SubmitDrawing from '../components/draw/SubmitDrawing';
 
 
