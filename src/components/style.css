@@ -1,0 +1,44 @@
+.LoginForm {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.LogoBox {
+    background-color: #A593E0;
+    width: 20rem;
+    height: 5rem;
+    border-color: white;
+}
+
+.LoginHeader {
+    color: white;
+    position: absolute;
+    left: 3.5rem;
+}
+
+.Content{
+    color:#566270;
+    background-color: #E0E3DA;
+    padding: 1rem;
+    float: left;
+    width: 12rem;
+}
+
+.LoginBtn{
+    background-color: #566270;
+    font-size: 15px;
+    padding: 0.4rem;
+    color: white;
+}
+
+.ContentLoginBtn{
+    background-color: #E0E3DA;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.form-control {
+    width: 9rem;
+}
