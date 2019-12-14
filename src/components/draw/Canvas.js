@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CanvasDraw from 'react-canvas-draw';
-
+import firebaseDb from '../../firebase.db';
 
 // class DrawingSettings {
 //   this.bru
@@ -71,8 +71,18 @@ function Canvas() {
           onClick={() => {
             // e.preventdefault();
             currentDrawing.getSaveData();
-            // pushImageData(currentDrawing.)
-            console.log(currentDrawing);
+            //pushImageData(currentDrawing.getSaveData());
+            console.log(currentDrawing.getSaveData());
+          }}
+        />
+        <input
+          type="button"
+          value="save"
+          onClick={() => {
+            // e.preventdefault();
+            currentDrawing.getSaveData();
+            firebaseDb.pushImageData(currentDrawing.getSaveData());
+            console.log(currentDrawing.getSaveData());
           }}
         />
       </div>
@@ -88,7 +98,7 @@ function Canvas() {
     <div>
       <DrawingTools />
       <CanvasDraw
-        hidegrids
+        hideGrid
         ref={canvasDraw => (currentDrawing = canvasDraw)}
         brushColor={brushColor}
         brushRadius={brushRadius}
@@ -96,9 +106,7 @@ function Canvas() {
         canvasHeight={canvasHeight}
         lazyRadius={lazyRadius}
         DrawingTools={DrawingTools}
-        imgSrc="../../../public/bg.png"
       />
-      
     </div>
   );
 }
