@@ -13,9 +13,9 @@ const Login = () => {
     await firebase.auth().signInWithPopup(provider);
     checkHaveId();
   }
-  const logout = async () => {
-    firebase.auth().signOut();
-  }
+  // const logout = async () => {
+  //   firebase.auth().signOut();
+  // }
   firebase.auth().onAuthStateChanged((user) => {
     console.log(firebase.auth().currentUser);
     if (user) {
@@ -24,13 +24,13 @@ const Login = () => {
       setUser();
     }
   })
-  const pushUserData = async () => {
-    firebaseDb.pushUserData({
-      id: 'testemail',
-      name: 'testname',
-      score: 0,
-    });
-  }
+  // const pushUserData = async () => {
+  //   firebaseDb.pushUserData({
+  //     id: 'testemail',
+  //     name: 'testname',
+  //     score: 0,
+  //   });
+  // }
   const checkHaveId = async () => {
     const users = await firebaseDb.getUserData();
     const currentUser = firebase.auth().currentUser;
@@ -50,25 +50,36 @@ const Login = () => {
   // }, [])
 
   return (
-    <div>
-      {
+    <div id="login">
+      {/* {
         (!user)
         ? (<div>
-            <button onClick={googleLogin}>google</button>
+            <button onClick={googleLogin}>
+              <img
+            </button>
           </div>)
         : (
           (!haveId) 
           ? (<div> <LoginForm/> </div>)
           : (<Link to="/home">Home</Link>)
         )
-      }
-      <div>
+      } */}
+      <div className="login-box">
+        <div className="title">
+          Fetch Mind
+        </div>
+        <button className="google-login">
+          <img className="google-logo" src="/static/google_logo.png" width="80" />
+          <span>Login with Google</span>  
+        </button>
+      </div>
+      {/* <div>
         <button onClick={logout}>logout</button>
-      </div>
+      </div> */}
 
-      <div>
+      {/* <div>
         <button onClick={pushUserData}>push</button>
-      </div>
+      </div> */}
     </div>
   );
 }  
