@@ -10,9 +10,12 @@ const canvasHeight = '800px';
 const lazyRadius = 10;
 const brushRadius = 3;
 let currentDrawing;
+let loadableCanvas;
 
 function Canvas() {
   const [brushColor, setBrushColor] = useState('#000000');
+  const [answer, setAnswer] = useState('');
+
   function DrawingTools() {
     return (
       <div>
@@ -57,55 +60,50 @@ function Canvas() {
           }}
         />
         <input
+          id="eraser"
+          value="eraser"
+          type="button"
+          onClick={() => {
+            setBrushColor('#FFFFFF');
+          }}
+        />
+        <input
           type="button"
           value="undo"
           onClick={() => {
             // e.preventdefault();
             currentDrawing.undo();
-            console.log("undo");
-          }}
-        />
-        <input
-          type="button"
-          value="save"
-          onClick={() => {
-            // e.preventdefault();
-            currentDrawing.getSaveData();
-            //pushImageData(currentDrawing.getSaveData());
-            console.log(currentDrawing.getSaveData());
-          }}
-        />
-        <input
-          type="button"
-          value="save"
-          onClick={() => {
-            // e.preventdefault();
-            currentDrawing.getSaveData();
-            firebaseDb.pushImageData(currentDrawing.getSaveData());
-            console.log(currentDrawing.getSaveData());
+            console.log('undo');
           }}
         />
       </div>
     );
   }
-  // function submitDrawing (e) {
-  //   e.preventdefault();
-  //   fetch{
-
-  //   }
-  // }
+  function submitDrawing(e) {
+    return (
+      <div>
+        <input
+          type="button"
+          value="save"
+          onClick={() => {
+            firebaseDb.pushImageData(currentDrawing.getSaveData());
+            console.log(temp);
+          }}
+        />
+      </div>
+    );
+  }
   return (
     <div>
       <DrawingTools />
       <CanvasDraw
         hideGrid
-        ref={canvasDraw => (currentDrawing = canvasDraw)}
+        ref={(canvasDraw) => (currentDrawing = canvasDraw)}
         brushColor={brushColor}
         brushRadius={brushRadius}
         canvasWidth={canvasWidth}
         canvasHeight={canvasHeight}
         lazyRadius={lazyRadius}
-        DrawingTools={DrawingTools}
       />
     </div>
   );

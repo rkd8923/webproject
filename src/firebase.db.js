@@ -8,14 +8,13 @@ const getImageData = async () => {
   return data;
 };
 
-const pushImageData = async (drawing) => {
+const pushImageData = async (id = 'skruddn', maker = 'rlatpdnjs', answer, drawing) => {
   const response = await fetch(`${firebaseURL}/paints.json`, {
     method: 'POST',
-    header:
     body: JSON.stringify({
-      id: 'dumb621',
-      maker: 'dumbdumb',
-      answer: 'Picasso',
+      id: `${id}`,
+      maker: `${maker}`,
+      answer: `${answer}`,
       starpoint: [],
       image: `${drawing}`,
     }),
