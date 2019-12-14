@@ -31,10 +31,8 @@ const Login = () => {
 
   return (
     <div>
-<<<<<<< HEAD
       <button onClick={googleLogin}>google</button>
       <Link to="/home">Home</Link>
-=======
       <div>
         <button onClick={googleLogin}>google</button>
       </div>
@@ -46,7 +44,6 @@ const Login = () => {
       <div>
         <button onClick={firebaseDb.pushUserData({id: 'testemail', name: 'testname', score: 0})}>push</button>
       </div>
->>>>>>> c17c8aad26c22bd3ff1cf131a3aeeabeb02dbd78
     </div>
   );
 }  
