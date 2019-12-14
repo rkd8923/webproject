@@ -7,6 +7,14 @@ const getImageData = async () => {
   const data = await response.json();
   return data; 
 }
+
+const pushImageData = async (drawing) => {
+  const response = await fetch(`${firebaseURL}/paints.json`, {
+    method: 'POST',
+    body: `drawing=${drawing}`
+  });
+}
+
 export default {
-  getImageData,
+  getImageData, pushImageData
 }
