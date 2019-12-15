@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import Canvas from '../components/draw/Canvas';
-import DrawingSubject from '../components/draw/DrawingSubject';
 import SubmitDrawing from '../components/draw/SubmitDrawing';
 
 function DrawingPage(props) {
@@ -15,7 +14,6 @@ function DrawingPage(props) {
       <div>
       Drawing Canvas
       </div>
-      <DrawingSubject />
       <Canvas />
       <SubmitDrawing />
     </div>
