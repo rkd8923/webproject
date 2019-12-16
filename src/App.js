@@ -1,20 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import { Login, Drawingpage, Solve } from './pages';
 import firebase from './firebase';
-import { BrowserRouter, Route } from 'react-router-dom';
-import { Home, Login, Drawingpage, Solve } from './pages';
 import './styles/App.css';
-import DrawingPage from './pages/Drawingpage';
 
-function App() {
-  // const [user, setUser] = useState();
+const App = () => {
+  const [user, setUser] = useState();
+  firebase.auth().onAuthStateChanged((u) => {
+    if (u) {
+      setUser(u);
+    } else {
+      setUser();
+    }
+  });
 
   return (
-    <BrowserRouter>
-      <Route exact path="/" component={Login}/>
-      <Route path="/home" component={Home} />
-      <Route path="/Drawingpage" component={Drawingpage} />
-      <Route path="/Solve" component={Solve} />
-    </BrowserRouter>
+    <Router>
+      <Switch>
+        <Route exact path="/"><Login user={user} /></Route>
+        <Route path="/home">
+          <Home user={user} />
+        </Route>
+        <Route path="/Drawingpage"><Drawingpage user={user} /></Route>
+        <Route path="/Solve"><Solve user={user} /></Route>
+      </Switch>
+    </Router>
   );
 }
 

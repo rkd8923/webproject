@@ -6,9 +6,7 @@ const FirebaseTest = () => {
     const response = await fetch(`${firebaseURL}/users.json`, {
       method: 'GET',
     });
-    console.log(response);
     const data = await response.json();
-    console.log(data);
   }
   return (
     <div>
