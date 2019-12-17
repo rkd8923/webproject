@@ -7,7 +7,6 @@ function DrawingPage(props) {
   let userEmail = '';
   if (props.user) {
     userEmail = props.user.email;
-    console.log('yoyo', userEmail);
   }
   // useEffect(() => {
   //   if (props.user) {
