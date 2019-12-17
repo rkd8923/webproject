@@ -12,7 +12,8 @@ const brushRadius = 3;
 let currentDrawing;
 let image;
 
-const Canvas = (userEmail) => {
+
+const Canvas = (props) => {
   const [brushColor, setBrushColor] = useState('#000000');
   const [answer, setAnswer] = useState('');
 
@@ -90,14 +91,15 @@ const Canvas = (userEmail) => {
 
   const onSend = () => {
     image = currentDrawing.getSaveData();
-    console.log(userEmail, answer, image);
-    firebaseDb.pushImageData(userEmail, answer, image);
+    console.log(props.userEmail, answer, image);
+    firebaseDb.pushImageData(props.userEmail, answer, image);
   };
 
   const SubmitDrawing = () => {
     return (
       <form onSubmit={(e) => {
         e.preventDefault();
+        setAnswer(e.target.value);
         onSend();
       }}
       >
