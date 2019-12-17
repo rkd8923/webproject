@@ -103,7 +103,7 @@ const Canvas = (props) => {
         onSend();
       }}
       >
-        <input type="text" value={answer} onChange={(e) => setAnswer(e.target.value)} />
+        <input type="text" id="answer-input" value={answer} onChange={(e) => setAnswer(e.target.value)}/>
         <input
           type="submit"
           value="save"
