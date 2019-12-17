@@ -1,37 +1,23 @@
-.LoginForm {
-    background-color: #ededed;
-    width: 20rem;
-    height: 13rem;
-}
-
-.LoginFormTitle {
-    background-color: #A593E0;
-    width: 16rem;
-    height: 5rem;
-    
-    font-size: 15px;
-    text-align: center;
-    color: white;
-}
-
-.Content{
-    color:#566270;
+.login-form-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 360px;
     background-color: white;
-    float: left;
-    width: 12rem;
+    height: 200px;
+    border-radius: 8px;
 }
-
-.ContentNickname{
-    width: 20rem;
-    background-color: #E0E3DA;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+.login-input {
+    width: 180px;
+    height: 30px;
+    font-size: 18px;
+    margin-bottom: 12px;
 }
-
-.CreateNickname{
-    background-color: #566270;
-    font-size: 15px;
-    padding: 0.4rem;
+.login-button {
+    width: 60px;
+    height: 30px;
+    border: 0px;
+    background-color: #64b5f6;
     color: white;
+    cursor: pointer;
 }
-

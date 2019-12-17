@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import CanvasDraw from 'react-canvas-draw';
+import CanvasDraw from 'react-canvas-draw';
 import firebaseDb from '../../firebase.db';
 
 // class DrawingSettings {
@@ -10,9 +10,12 @@ const canvasHeight = '800px';
 const lazyRadius = 10;
 const brushRadius = 3;
 let currentDrawing;
+let image;
 
 function Canvas() {
   const [brushColor, setBrushColor] = useState('#000000');
+  const [answer, setAnswer] = useState('');
+
   function DrawingTools() {
     return (
       <div>
@@ -57,56 +60,71 @@ function Canvas() {
           }}
         />
         <input
+          id="eraser"
+          value="eraser"
+          type="button"
+          onClick={() => {
+            setBrushColor('#FFFFFF');
+          }}
+        />
+        <input
           type="button"
           value="undo"
           onClick={() => {
             // e.preventdefault();
             currentDrawing.undo();
-            console.log("undo");
+            console.log('undo');
           }}
         />
         <input
           type="button"
           value="save"
           onClick={() => {
-            // e.preventdefault();
-            currentDrawing.getSaveData();
-            //pushImageData(currentDrawing.getSaveData());
-            console.log(currentDrawing.getSaveData());
-          }}
-        />
-        <input
-          type="button"
-          value="save"
-          onClick={() => {
-            // e.preventdefault();
-            currentDrawing.getSaveData();
-            firebaseDb.pushImageData(currentDrawing.getSaveData());
-            console.log(currentDrawing.getSaveData());
+            image = currentDrawing.getSaveData();
+            console.log(image);
           }}
         />
       </div>
     );
   }
-  // function submitDrawing (e) {
-  //   e.preventdefault();
-  //   fetch{
 
-  //   }
-  // }
+  const onSend = () => {
+    image = currentDrawing.getSaveData();
+    const userEmail = localStorage.getItem('userEmail');
+    console.log(userEmail, answer, image);
+    firebaseDb.pushImageData(userEmail, answer, image);
+  };
+
+  const SubmitDrawing = () => {
+    return (
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        onSend();
+      }}
+      >
+        <input type="text" value={answer} onChange={(e) => setAnswer(e.target.value)} />
+        <input
+          type="submit"
+          value="save"
+        />
+      </form>
+    );
+  };
+
   return (
     <div>
       <DrawingTools />
-      {/* <CanvasDraw
+      <CanvasDraw
         hideGrid
-        ref={canvasDraw => (currentDrawing = canvasDraw)}
+        ref={(canvasDraw) => (currentDrawing = canvasDraw)}
         brushColor={brushColor}
         brushRadius={brushRadius}
         canvasWidth={canvasWidth}
         canvasHeight={canvasHeight}
         lazyRadius={lazyRadius}
         DrawingTools={DrawingTools}
-      /> */}
+      />
+      <SubmitDrawing />
     </div>
   );
 }
