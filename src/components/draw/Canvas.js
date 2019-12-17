@@ -12,7 +12,7 @@ const brushRadius = 3;
 let currentDrawing;
 let image;
 
-function Canvas() {
+const Canvas = (userEmail) => {
   const [brushColor, setBrushColor] = useState('#000000');
   const [answer, setAnswer] = useState('');
 
@@ -90,7 +90,6 @@ function Canvas() {
 
   const onSend = () => {
     image = currentDrawing.getSaveData();
-    const userEmail = localStorage.getItem('userEmail');
     console.log(userEmail, answer, image);
     firebaseDb.pushImageData(userEmail, answer, image);
   };
