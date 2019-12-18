@@ -5,7 +5,7 @@ import firebaseDb from '../firebase.db';
 
 
 function DrawingPage(props) {
-  const canvasWidth = '80%';
+  const canvasWidth = '1200px';
   const canvasHeight = '800px';
   const lazyRadius = 10;
   const brushRadius = 3;
@@ -17,6 +17,8 @@ function DrawingPage(props) {
   const [answer, setAnswer] = useState('');
   if (props.user) {
     userEmail = props.user.email;
+  } else {
+    
   }
   // useEffect(() => {
   //   if (props.user) {
@@ -24,7 +26,7 @@ function DrawingPage(props) {
   //     console.log('yoyo', userEmail);
   //   }
   // }, [props.user]);
-  console.log(localStorage.getItem("savedDrawing"));
+  console.log(localStorage.getItem('savedDrawing'));
 
   function DrawingTools() {
     return (
@@ -113,7 +115,7 @@ function DrawingPage(props) {
         canvasHeight={canvasHeight}
         lazyRadius={lazyRadius}
         DrawingTools={DrawingTools}
-        saveData={localStorage.getItem("savedDrawing")}
+        // saveData={localStorage.getItem('savedDrawing')}
       />
       <form
         id="drawing-submission"
@@ -121,7 +123,7 @@ function DrawingPage(props) {
           e.preventDefault();
           setAnswer(e.target.value);
           onSend();
-          localStorage.setItem("savedDrawing", image)
+          // localStorage.setItem('savedDrawing', image);
         }}
       >
         <input type="text" id="answer-input" value={answer} onChange={(e) => setAnswer(e.target.value)} />
