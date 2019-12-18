@@ -5,23 +5,23 @@ const getImageData = async () => {
     method: 'GET',
   });
   const data = await response.json();
-  return data; 
-}
+  return data;
+};
 
 const getUserData = async () => {
   const response = await fetch(`${firebaseURL}/users.json`, {
     method: 'GET',
   });
-  const data= await response.json();
+  const data = await response.json();
   return data;
-}
+};
 
 const getMyData = async (email) => {
   let result;
   const response = await fetch(`${firebaseURL}/users.json`, {
     method: 'GET',
   });
-  const data= await response.json();
+  const data = await response.json();
   const dataArray = Object.values(data);
   dataArray.forEach((user) => {
     if (user.id === email) {
@@ -29,7 +29,7 @@ const getMyData = async (email) => {
     }
   });
   return result;
-}
+};
 
 
 const pushUserData = async ({ id, name, score }) => {
