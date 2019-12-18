@@ -2,8 +2,20 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CanvasDraw from 'react-canvas-draw';
 import Button from '@material-ui/core/Button';
+import { withStyles,makeStyles  } from '@material-ui/core/styles';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 import firebaseDb from '../firebase.db';
 
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(3),
+  },
+}));
 
 function DrawingPage(props) {
   const canvasWidth = '1200px';
@@ -16,10 +28,16 @@ function DrawingPage(props) {
   let userEmail = '';
   const [brushColor, setBrushColor] = useState('#000000');
   const [answer, setAnswer] = useState('');
-  if (props.user) {
+
+
+  const classes = useStyles();
+
+  const handleChange = (event) => {
+    setBrushColor(event.target.value);
+  };
+
+  if (props.user) { // 로그인체크
     userEmail = props.user.email;
-  } else {
-    
   }
   // useEffect(() => {
   //   if (props.user) {
@@ -32,6 +50,20 @@ function DrawingPage(props) {
   function DrawingTools() {
     return (
       <div>
+        <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Brush Color</FormLabel>
+          <RadioGroup aria-label="gender" name="colors" value={brushColor} onChange={handleChange}>
+            <FormControlLabel value="#e62b12" control={<Radio />} label="Red" />
+            <FormControlLabel value="#32a628" control={<Radio />} label="Green" />
+            <FormControlLabel value="#0022ff" control={<Radio />} label="Blue" />
+            <FormControlLabel
+              value="disabled"
+              disabled
+              control={<Radio />}
+              label="(Disabled option)"
+            />
+          </RadioGroup>
+        </FormControl>
         <input
           id="red"
           value="red"
