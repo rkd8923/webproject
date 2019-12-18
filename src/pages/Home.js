@@ -8,7 +8,7 @@ const Home = (props) => {
   const setMyDatas = async () => {
     if (props.user) {
       const my = await firebaseDb.getMyData(props.user.email);
-      setMyData(my);
+      setMyData(my.myData);
     }
   };
   useEffect(() => {
@@ -34,13 +34,10 @@ const Home = (props) => {
                   ? (
                     <div>
                       <div>
-                        닉네임 :&nbsp;
-                        {myData.name}
+                        {`닉네임: ${myData.name}`}
                       </div>
                       <div>
-                        내 점수 :&nbsp;
-                        {myData.score}
-                        &nbsp;점
+                        {`내점수: ${myData.score} 점`}
                       </div>
                     </div>
                   )
