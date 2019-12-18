@@ -5,7 +5,7 @@ const getImageData = async () => {
     method: 'GET',
   });
   const data = await response.json();
-  return data; 
+  return data;
 }
 
 const getUserData = async () => {
