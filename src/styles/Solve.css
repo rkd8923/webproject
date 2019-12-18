@@ -7,8 +7,11 @@
   height: 100vh;
 }
 #solve #canvas-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 800px;
-  height: 600px;
+  height: 900px;
   background-color: cyan;
 }
 #solve #solve-tools {

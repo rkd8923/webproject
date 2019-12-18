@@ -1,30 +1,22 @@
-import React, { Component } from "react";
+import React from 'react';
+import './Modal.scss';
 
-class AnswerPop extends Component {
-  handleClick = () => {
-    this.props.toggle();
-  };
-
-  render() {
-    return (
-      <div className="modal">
-        <div className="modal_content">
-          <span className="close" onClick={this.handleClick}>
-            &times;
-          </span>
-          <form>
-            <h3>Register!</h3>
-            <label>
-              Name:
-              <input type="text" name="name" />
-            </label>
-            <br />
-            <input type="submit" />
-          </form>
+const AnswerModal = () => {
+  return (
+    <React.Fragment>
+         <div className="Modal-overlay" />
+      <div className="Modal">
+        <p className="title">Modal Title</p>
+        <div className="content">
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel tempora nulla, non molestiae dicta ducimus. Et unde laborum eveniet ex quod doloribus quae, aliquam beatae atque, vero assumenda rem quo?
+          </p>
+        </div>
+        <div className="button-wrap">
+          <button> Confirm </button>
         </div>
       </div>
-    );
-  }
+    </React.Fragment>
+  )
 }
-
-export default AnswerPop;
+export default AnswerModal;
