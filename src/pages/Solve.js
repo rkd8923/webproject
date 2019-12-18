@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import CanvasDraw from 'react-canvas-draw';
 import { database } from 'firebase';
-import AnswerPop from '../components/solve/answerPop';
+import AnswerPop from '../components/solve/AnswerModal';
 import firebaseDb from '../firebase.db';
 import '../styles/Solve.css';
 
@@ -16,6 +16,7 @@ function Solve(props) {
   const [clear, setClear] = useState(false);
   const [time, setTime] = useState(0);
   const [loadPaint] = useState('');
+  const [myScore, setMyScore] = useState(0);
 
   const setMyDatas = async () => {
     if (props.user) {
@@ -45,13 +46,14 @@ function Solve(props) {
 
   const submit = () => {
     // const mySolved = (myData.solved) ? myData.solved.push(solve)
-    const myScore = myData.score + (1000 - time);
+    const myS = myData.score + (1000 - time);
+    setMyScore(myS);
     firebaseDb.pushClearData({
       userId: dbId,
       userData: {
         id: myData.id,
         name: myData.name,
-        score: myScore,
+        score: myS,
       }
     });
   }
@@ -71,7 +73,9 @@ function Solve(props) {
   };
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime(time + 1);
+      if (!clear) {
+        setTime(time + 1);
+      }
     }, 1000);
     return () => {
       clearInterval(interval);
@@ -115,13 +119,8 @@ function Solve(props) {
             )
         }
       </div>
-      {
-        (!clear)
-        ? <AnswerPop />
-        : <div></div>
-      }
       <div id="solve-tools">
-        <div className="timer">{`time: ${time}`}</div>
+        <div className="timer">{`Time: ${time}`}</div>
         <div className="answer-box">
           <input
             className="answer"
@@ -129,15 +128,15 @@ function Solve(props) {
             value={myAnswer}
             onChange={handleAnswer}
           />
-          <button onClick={checkClear}>제출</button>
+          <button className="submitBtn" onClick={checkClear}>제출</button>
         </div>
         <button className="give-up" onClick={giveUp}>
           포기
         </button>
       </div>
+      { (clear) ? (<AnswerPop score={myScore} />) : (<div></div>) }
     </div>
   );
 }
-
 
 export default Solve;
