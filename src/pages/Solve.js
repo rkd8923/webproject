@@ -42,7 +42,7 @@ function Solve(props) {
     // myData.solved 에는 없는 이미지 중, random으로 하나 선택해서
     // setProblem 하기
     // 풀 문제의 이미지를 정하면 아래의 image위치에 넣으세요.
-    localStorage.setItem('savedDrawing', image);
+    // localStorage.setItem('savedDrawing', image);
     setLoadPaint(localStorage.getItem('savedDrawing')); // 이부분은 앞서 결정한 랜덤한 문제를, 현재 캔버스의 값에 덮어 씌우는 줄입니다.
 
     console.log('구현예정');
