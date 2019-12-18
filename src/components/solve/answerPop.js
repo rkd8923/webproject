@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-export default class AnswerPop extends Component {
+class AnswerPop extends Component {
   handleClick = () => {
     this.props.toggle();
   };
@@ -26,3 +26,5 @@ export default class AnswerPop extends Component {
     );
   }
 }
+
+export default AnswerPop;

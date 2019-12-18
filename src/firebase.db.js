@@ -6,7 +6,11 @@ const getImageData = async () => {
   });
   const data = await response.json();
   return data;
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> 1047b082616e739c19626680a343c6d37525dbb2
 
 const getUserData = async () => {
   const response = await fetch(`${firebaseURL}/users.json`, {
