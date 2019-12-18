@@ -5,7 +5,7 @@ import '../styles/Evaluation.css';
 
 function Evaluation() {
   const [starpoint, setStarpoint] = useState();
-  const prob = localStorage.getItem('problem');
+  const prob = "problem";
     console.log(prob);
   return (
     <div id="evaluation">
@@ -36,7 +36,6 @@ function Evaluation() {
         </label>
         <input type="submit" />
       </form>
-      {`${starpoint}`}
     </div>
   );
 }

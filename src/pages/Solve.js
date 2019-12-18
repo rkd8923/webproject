@@ -45,13 +45,11 @@ function Solve(props) {
     console.log(problem);
   };
 
-  const submit = () => {
+
     // imageObject의 정답과 확인 후 정답 여부 알려주기
     // 만약 정답일 경우, user의 데이터(score, solved) 해결해서 push
-  }
-  const giveUp = () => {
+
     // 포기 시 다시 home
-  }
   const onAnswer = (e) => {
     e.preventDefault();
     if (1) {
@@ -110,7 +108,7 @@ function Solve(props) {
           />
           <button onClick={onAnswer}>제출</button>
         </div>
-        <button className="give-up" onClick={giveUp}>
+        <button className="give-up" onClick={onGiveup}>
           포기
         </button>
       </div>
