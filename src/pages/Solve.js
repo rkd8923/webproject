@@ -41,6 +41,9 @@ function Solve(props) {
     // paints에 있는 이미지오브젝트들 중에서
     // myData.solved 에는 없는 이미지 중, random으로 하나 선택해서
     // setProblem 하기
+    // 풀 문제의 이미지를 정하면 아래의 image위치에 넣으세요.
+    localStorage.setItem('savedDrawing', image);
+    setLoadPaint(localStorage.getItem('savedDrawing')); // 이부분은 앞서 결정한 랜덤한 문제를, 현재 캔버스의 값에 덮어 씌우는 줄입니다.
 
     console.log('구현예정');
   };
@@ -79,18 +82,19 @@ function Solve(props) {
   useEffect(() => {
     selectRandomImage();
   }, [myData]);
+
+
   return (
     <div id="solve">
       <div id="canvas-box">
         <input
-          type ="button"
+          type="button"
           value="그림 불러오기"
-          onClick ={() => {
-            setLoadPaint(localStorage.getItem('savedDrawing'));
-            console.log(localStorage.getItem('savedDrawing'));
+          onClick={() => { //클릭할때마다 다시 로딩합니다.
             loadableCanvas.loadSaveData(
-              loadPaint
+              localStorage.getItem('savedDrawing'),
             );
+            console.log(loadPaint);
           }}
           // onClick={() => {
           //   loadableCanvas.loadSaveData(
@@ -100,10 +104,9 @@ function Solve(props) {
         />
         <CanvasDraw
           disabled
-          canvasWidth ="80%"
-          canvasHeight ="800px"
+          canvasWidth="80%" //너비와 위치는 수정하세요.
+          canvasHeight="800px"
           hideGrid
-          disabled
           ref={(canvasDraw) => (loadableCanvas = canvasDraw)}
           saveData={loadPaint}
         />
