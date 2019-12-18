@@ -15,14 +15,34 @@ import {
 } from '@material-ui/core/colors';
 import Drawer from '@material-ui/core/Drawer';
 import Container from '@material-ui/core/Container';
-import firebaseDb from '../firebase.db';
 import TextField from '@material-ui/core/TextField';
+import Toolbar from '@material-ui/core/Toolbar';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+import firebaseDb from '../firebase.db';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
+  },
+  root: {
+    display: 'flex',
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  toolbar: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    backgroundColor: '#FFFFFF',
+    padding: theme.spacing(3),
   },
 }));
 
@@ -37,6 +57,7 @@ function DrawingPage(props) {
   let userEmail = '';
   const [brushColor, setBrushColor] = useState('#000000');
   const [answer, setAnswer] = useState('');
+  const [reset, setReset] = useState('');
 
   const ColorButtonRed = withStyles((theme) => ({
     root: {
@@ -98,8 +119,6 @@ function DrawingPage(props) {
   //     console.log('yoyo', userEmail);
   //   }
   // }, [props.user]);
-  console.log(localStorage.getItem('savedDrawing'));
-
   function DrawingTools() {
     return (
       <div>
@@ -111,10 +130,18 @@ function DrawingPage(props) {
           }}
           anchor="left"
         >
+          <List>
+            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+              <ListItem button key={text}>
+                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
+          </List>
           <ButtonGroup
             orientation="vertical"
             color="primary"
-            aria-label="vertical outlined primary button group"
+            className={classes.toolbar}
           >
             <ColorButtonRed
               variant="contained"
@@ -186,6 +213,7 @@ function DrawingPage(props) {
     console.log(userEmail, answer, image);
     firebaseDb.pushImageData(userEmail, answer, image);
     setAnswer('');
+    currentDrawing.clear();
   };
 
 
@@ -197,7 +225,7 @@ function DrawingPage(props) {
       <div>
         <DrawingTools />
       </div>
-      <Container fixed>
+      <Container fixed className={classes.content}>
         <CanvasDraw
           hideGrid
           ref={(canvasDraw) => (currentDrawing = canvasDraw)}
@@ -207,19 +235,9 @@ function DrawingPage(props) {
           canvasHeight={canvasHeight}
           lazyRadius={lazyRadius}
           DrawingTools={DrawingTools}
-          // saveData={localStorage.getItem('savedDrawing')}
         />
       </Container>
-      <div>
-        <TextField
-          id="outlined-multiline-flexible"
-          label="Multiline"
-          multiline
-          rowsMax="4"
-          value={value}
-          onChange={handleChange}
-          variant="outlined"
-        />
+      <Container fixed>
         <form
           id="drawing-submission"
           onSubmit={(e) => {
@@ -229,13 +247,24 @@ function DrawingPage(props) {
             // localStorage.setItem('savedDrawing', image);
           }}
         >
-          <input type="text" id="answer-input" value={answer} onChange={(e) => setAnswer(e.target.value)} />
-          <input
+          <TextField
+            label="그림의 정답을 입력하세요"
+            defaultValue="Default Value"
+            className={classes.textField}
+            helperText="5글자 이내가 좋습니다 :)"
+            margin="normal"
+            value={answer}
+            onChange={(e) => setAnswer(e.target.value)}
+            variant="outlined"
+          />
+          <Button
             type="submit"
             value="save"
-          />
+          >
+          제출하기
+          </Button>
         </form>
-      </div>
+      </Container>
 
       {/* <CanvasDraw
         disabled
