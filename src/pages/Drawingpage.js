@@ -229,6 +229,7 @@ function DrawingPage(props) {
     firebaseDb.pushImageData(userEmail, answer, image);
     setAnswer('');
     currentDrawing.clear();
+    /* eslint-disable-next-line */
     alert('제출이 완료되었습니다.');
   };
 
