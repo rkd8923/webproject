@@ -1,8 +1,8 @@
 /* eslint-disable */
 import React, { useState, useEffect, useCallback } from 'react';
 import CanvasDraw from 'react-canvas-draw';
-import { database } from 'firebase';
-import AnswerPop from '../components/solve/AnswerModal';
+import AnswerModal from '../components/solve/AnswerModal';
+import GiveupModal from '../components/solve/GiveupModal';
 import firebaseDb from '../firebase.db';
 import '../styles/Solve.css';
 
@@ -17,6 +17,7 @@ function Solve(props) {
   const [time, setTime] = useState(0);
   const [loadPaint] = useState('');
   const [myScore, setMyScore] = useState(0);
+  const [giveup, setGiveup] = useState(false);
 
   const setMyDatas = async () => {
     if (props.user) {
@@ -54,7 +55,7 @@ function Solve(props) {
         id: myData.id,
         name: myData.name,
         score: myS,
-      }
+      },
     });
   }
 
@@ -69,7 +70,7 @@ function Solve(props) {
   };
 
   const giveUp = () => {
-    // 포기 시 다시 home
+    setGiveup(true);
   };
   useEffect(() => {
     const interval = setInterval(() => {
@@ -90,14 +91,9 @@ function Solve(props) {
       setAnswer(problem.answer);
     }
   }, [problem])
-  // user에 저장된 email을 이용해 myData를 업데이트
   useEffect(() => {
     setMyDatas();
   }, [props.user]);
-  useEffect(() => {
-    // selectRandomImage();D
-    console.log('my', myData);
-  }, [myData]);
 
   return (
     <div id="solve">
@@ -134,7 +130,8 @@ function Solve(props) {
           포기
         </button>
       </div>
-      { (clear) ? (<AnswerPop score={myScore} />) : (<div></div>) }
+      { (clear) ? (<AnswerModal score={myScore} />) : (<div></div>) }
+      { (giveup) ? (<GiveupModal setGiveup={setGiveup} />) : (<div></div>) }
     </div>
   );
 }
