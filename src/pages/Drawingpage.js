@@ -37,6 +37,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Brightness1Icon from '@material-ui/icons/Brightness1';
 import GestureIcon from '@material-ui/icons/Gesture';
 import Slider from '@material-ui/core/Slider';
+import RoundedCornerTwoToneIcon from '@material-ui/icons/RoundedCornerTwoTone';
+
+
 
 
 
@@ -76,17 +79,13 @@ function DrawingPage(props) {
   const canvasWidth = '1200px';
   const canvasHeight = '800px';
   const lazyRadius = 10;
-  const brushRadius = 3;
   let currentDrawing;
   let image;
   let userEmail = '';
   const [brushColor, setBrushColor] = useState('#000000');
   const [answer, setAnswer] = useState('');
-  function valuetext(value) {
-    return `${brushRadius}°C`;
-  }
+  const [brushRadius, setBrushRadius] = useState(3);
 
-  
 
   const ColorButtonRed = withStyles((theme) => ({
     root: {
@@ -198,6 +197,15 @@ function DrawingPage(props) {
           </ColorButtonBlack>
         </ButtonGroup>
 
+        <IconButton
+          variant="contained"
+          color="default"
+          onClick={() => {
+            setBrushColor('#FFFFFF');
+          }}>
+          <RoundedCornerTwoToneIcon />
+        </IconButton>
+
         
 
         <IconButton aria-label="Clear All" onClick={() => {
@@ -217,36 +225,17 @@ function DrawingPage(props) {
         </IconButton>
 
         <Slider
-          defaultValue={30}
-          getAriaValueText={valuetext}
-          aria-labelledby="discrete-slider"
-          valueLabelDisplay="auto"
-          step={10}
-          marks
-          min={10}
-          max={110}
-        />
-
-        
-
-
-        <input
-          id="eraser"
-          value="eraser"
-          type="button"
-          onClick={() => {
-            setBrushColor('#FFFFFF');
+          value={brushRadius}
+          style={{ color: '#000000' }}
+          onChange={(event, newBrushRadius) => {
+            setBrushRadius(newBrushRadius);
           }}
+          aria-labelledby="Adjust Brush Radius"
+          min={3}
+          max={100}
         />
-        <input
-          type="button"
-          value="undo"
-          onClick={() => {
-          // e.preventdefault();
-            currentDrawing.undo();
-            console.log('undo');
-          }}
-        />
+
+
       </div>
     );
   }
@@ -269,13 +258,13 @@ function DrawingPage(props) {
           justify="center"
           alignItems="baseline"
         >
-          <Grid item xs spacing={3}>
-            <Typography variant="h5" component="h3">
-              This is a sheet of paper.
+          <Grid>
+            <Typography variant="h5" component="h3" id="tool-title">
+              Tools
             </Typography>
-            <Paper className={classes.paper}><DrawingTools /></Paper>
           </Grid>
           <Grid item xs spacing={3}>
+            
             <Paper className={classes.paper}><DrawingTools /></Paper>
           </Grid>
         </Grid>
@@ -296,7 +285,19 @@ function DrawingPage(props) {
         </Grid>
 
         <Grid item xs>
-          <Paper className={classes.paper}>xs</Paper>
+          <Paper className={classes.paper}>
+            <Typography>
+              안녕하세요, FetchMind에 오신 것을 환영합니다.
+              <br />
+              FetchMind는 여러분이 만드는 창의적 작화 유추 게임입니다.
+              <br />
+              이곳에서 여러분은 본인의 머릿속에 떠오르는 바로 그 대상을 그려 다른 사람들이 풀어볼 수 있도록 할 수 있습니다.
+              <br />
+              <br />
+              본인의 창의력을 맘껏 펼쳐보세요!
+
+            </Typography>
+          </Paper>
         </Grid>
       </Grid>
       <div id="form-answer">
@@ -323,6 +324,7 @@ function DrawingPage(props) {
             type="submit"
             value="save"
             id="submit-answer"
+            variant="contained"
           >
           제출하기
           </Button>
