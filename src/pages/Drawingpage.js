@@ -25,15 +25,25 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import firebaseDb from '../firebase.db';
+import '../styles/Drawingpage.css';
+import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import Grid from '@material-ui/core/Grid';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
+  card: {
+    width: 275,
+    height: 500,
+  },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
   },
   root: {
     display: 'flex',
+    padding: theme.spacing(3, 2),
   },
   drawerPaper: {
     width: drawerWidth,
@@ -44,6 +54,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#FFFFFF',
     padding: theme.spacing(3),
   },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+
 }));
 
 function DrawingPage(props) {
@@ -128,15 +144,13 @@ function DrawingPage(props) {
           classes={{
             paper: classes.drawerPaper,
           }}
-          anchor="left"
+          anchor="right"
         >
           <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
+            <ListItem button key="hello">
+              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemText primary="hello" />
+            </ListItem>
           </List>
           <ButtonGroup
             orientation="vertical"
@@ -186,6 +200,53 @@ function DrawingPage(props) {
           </ButtonGroup>
         </Drawer>
 
+        <ButtonGroup
+          orientation="vertical"
+          color="primary"
+          className={classes.toolbar}
+        >
+          <ColorButtonRed
+            variant="contained"
+            onClick={() => {
+              setBrushColor('#e62b12');
+            }}
+          >
+            Red
+          </ColorButtonRed>
+          <ColorButtonGreen
+            variant="contained"
+            onClick={() => {
+              setBrushColor('#32a628');
+            }}
+          >
+            Green
+          </ColorButtonGreen>
+          <ColorButtonBlue
+            variant="contained"
+            onClick={() => {
+              setBrushColor('#0022ff');
+            }}
+          >
+            Blue
+          </ColorButtonBlue>
+          <ColorButtonYellow
+            variant="contained"
+            onClick={() => {
+              setBrushColor('#ffea00');
+            }}
+          >
+            Yellow
+          </ColorButtonYellow>
+          <ColorButtonBlack
+            variant="contained"
+            onClick={() => {
+              setBrushColor('#000000');
+            }}
+          >
+            Black
+          </ColorButtonBlack>
+        </ButtonGroup>
+
 
         <input
           id="eraser"
@@ -219,25 +280,51 @@ function DrawingPage(props) {
 
   return (
     <div>
-      <div>
-      Drawing Canvas
-      </div>
+      <Grid container spacing={3}>
+        <Grid item xs>
+          <Paper className={classes.paper}><DrawingTools /></Paper>
+        </Grid>
+        <Grid item xs>
+          <Paper className={classes.paper}>
+            <CanvasDraw
+              hideGrid
+              ref={(canvasDraw) => (currentDrawing = canvasDraw)}
+              brushColor={brushColor}
+              brushRadius={brushRadius}
+              canvasWidth={canvasWidth}
+              canvasHeight={canvasHeight}
+              lazyRadius={lazyRadius}
+              DrawingTools={DrawingTools}
+              border
+            />
+          </Paper>
+        </Grid>
+
+        <Grid item xs>
+          <Paper className={classes.paper}>xs</Paper>
+        </Grid>
+      </Grid>
       <div>
         <DrawingTools />
       </div>
-      <Container fixed className={classes.content}>
-        <CanvasDraw
-          hideGrid
-          ref={(canvasDraw) => (currentDrawing = canvasDraw)}
-          brushColor={brushColor}
-          brushRadius={brushRadius}
-          canvasWidth={canvasWidth}
-          canvasHeight={canvasHeight}
-          lazyRadius={lazyRadius}
-          DrawingTools={DrawingTools}
-        />
-      </Container>
-      <Container fixed>
+      <div>
+        <Container>
+          <Paper className={classes.root}>
+            <CanvasDraw
+              hideGrid
+              ref={(canvasDraw) => (currentDrawing = canvasDraw)}
+              brushColor={brushColor}
+              brushRadius={brushRadius}
+              canvasWidth={canvasWidth}
+              canvasHeight={canvasHeight}
+              lazyRadius={lazyRadius}
+              DrawingTools={DrawingTools}
+              border
+            />
+          </Paper>
+        </Container>
+      </div>
+      <div id="form-answer">
         <form
           id="drawing-submission"
           onSubmit={(e) => {
@@ -260,11 +347,12 @@ function DrawingPage(props) {
           <Button
             type="submit"
             value="save"
+            id="submit-answer"
           >
           제출하기
           </Button>
         </form>
-      </Container>
+      </div>
 
       {/* <CanvasDraw
         disabled
