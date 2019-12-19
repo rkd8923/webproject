@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from 'react';
 import CanvasDraw from 'react-canvas-draw';
 import Button from '@material-ui/core/Button';
