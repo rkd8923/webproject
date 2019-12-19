@@ -1,4 +1,4 @@
-/* eslint-disable no-return-assign */
+
 import React, { useState } from 'react';
 import CanvasDraw from 'react-canvas-draw';
 import Button from '@material-ui/core/Button';
@@ -258,7 +258,7 @@ function DrawingPage(props) {
           <Paper className={classes.paper}>
             <CanvasDraw
               hideGrid
-              ref={(canvasDraw) => (currentDrawing = canvasDraw)}
+              ref={(canvasDraw) => { (currentDrawing = canvasDraw); }}
               brushColor={brushColor}
               brushRadius={brushRadius}
               canvasWidth={canvasWidth}
