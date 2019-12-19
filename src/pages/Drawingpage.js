@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable no-return-assign */
+import React, { useState } from 'react';
 import CanvasDraw from 'react-canvas-draw';
 import Button from '@material-ui/core/Button';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
@@ -123,6 +124,7 @@ function DrawingPage(props) {
   //     console.log('yoyo', userEmail);
   //   }
   // }, [props.user]);
+  console.log(localStorage.getItem('savedDrawing'));
   function DrawingTools() {
     return (
       <div>
@@ -185,8 +187,8 @@ function DrawingPage(props) {
 
 
         <IconButton
-aria-label="Clear All"
-onClick={() => {
+          aria-label="Clear All"
+          onClick={() => {
             currentDrawing.clear();
           }}
         >
@@ -194,8 +196,8 @@ onClick={() => {
         </IconButton>
 
         <IconButton
-aria-label="Undo"
-onClick={() => {
+          aria-label="Undo"
+          onClick={() => {
             currentDrawing.undo();
           }}
         >
@@ -237,7 +239,7 @@ onClick={() => {
       <Grid container spacing={3} justify="center">
         <Grid
           item
-xs={1}
+          xs={1}
           direction="column"
           justify="center"
           alignItems="baseline"
@@ -314,16 +316,6 @@ xs={1}
           </Button>
         </form>
       </div>
-
-      {/* <CanvasDraw
-        disabled
-        hideGrid
-        ref={canvasDraw => (loadableCanvas = canvasDraw)}
-        saveData={localStorage.getItem("savedDrawing")}
-      /> */}
-
-
-      {/* <Canvas userEmail={userEmail} /> */}
     </div>
   );
 }

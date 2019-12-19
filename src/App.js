@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import { Login, Drawingpage, Solve } from './pages';
@@ -27,7 +27,7 @@ const App = () => {
       </Switch>
     </Router>
   );
-}
+};
 
 
 export default App;
