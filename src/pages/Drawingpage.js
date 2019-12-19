@@ -6,6 +6,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import {
   red, green, blue, yellow, grey,
 } from '@material-ui/core/colors';
+import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import '../styles/Drawingpage.css';
 import Paper from '@material-ui/core/Paper';
@@ -17,6 +18,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Brightness1Icon from '@material-ui/icons/Brightness1';
 import Slider from '@material-ui/core/Slider';
 import RoundedCornerTwoToneIcon from '@material-ui/icons/RoundedCornerTwoTone';
+
 import firebaseDb from '../firebase.db';
 
 
@@ -250,8 +252,12 @@ function DrawingPage(props) {
             </Typography>
           </Grid>
           <Grid item xs spacing={3}>
-
             <Paper className={classes.paper}><DrawingTools /></Paper>
+          </Grid>
+          <Grid>
+            <div className="to-home-box">
+              <Link className="to-home" to="/home">홈으로</Link>
+            </div>
           </Grid>
         </Grid>
         <Grid item xs>
@@ -314,7 +320,7 @@ function DrawingPage(props) {
             id="submit-answer"
             variant="contained"
           >
-          제출하기
+            제출하기
           </Button>
         </form>
       </div>
