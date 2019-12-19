@@ -15,7 +15,7 @@ const AnswerModal = (props) => {
           </p>
         </div>
         <div className="button-wrap">
-          <Link to="/home">확인</Link>
+          <Link className="ok" to="/home">확인</Link>
         </div>
       </div>
     </React.Fragment>

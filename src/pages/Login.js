@@ -8,15 +8,18 @@ import LoginForm from '../components/Login/LoginForm';
 const Login = (props) => {
   const [User, setUser] = useState();
   const [haveId, setHaveId] = useState(false);
+
   const checkHaveId = async () => {
     const users = await firebaseDb.getUserData();
-    const usersData = Object.values(users);
-    if (props.user) {
-      usersData.forEach((user) => {
-        if (user.id === props.user.email) {
-          setHaveId(true);
-        }
-      });
+    if (users) {
+      const usersData = Object.values(users);
+      if (props.user) {
+        usersData.forEach((user) => {
+          if (user.id === props.user.email) {
+            setHaveId(true);
+          }
+        });
+      }
     }
   };
   const googleLogin = async () => {
@@ -24,9 +27,7 @@ const Login = (props) => {
     await firebase.auth().signInWithPopup(provider);
     checkHaveId();
   };
-  // const logout = async () => {
-  //   firebase.auth().signOut();
-  // }
+
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       setUser(user);
@@ -36,7 +37,9 @@ const Login = (props) => {
   });
 
   useEffect(() => {
-    checkHaveId();
+    if (props.user) {
+      checkHaveId();
+    }
   }, [props.user]);
 
   return (

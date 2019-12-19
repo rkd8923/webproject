@@ -95,6 +95,15 @@
   margin: 15px;
 }
 
+.logout {
+  margin-top: 12px;
+  font-size: 18px;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 a:link {text-decoration: none; color: black;}
 a:visited {text-decoration: none; color: black;}
 a:active {text-decoration: none; color: black;}
