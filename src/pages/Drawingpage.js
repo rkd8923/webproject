@@ -78,14 +78,13 @@ function DrawingPage(props) {
   const lazyRadius = 10;
   const brushRadius = 3;
   let currentDrawing;
-  let loadableCanvas;
   let image;
   let userEmail = '';
   const [brushColor, setBrushColor] = useState('#000000');
   const [answer, setAnswer] = useState('');
   function valuetext(value) {
-  return `${value}°C`;
-}
+    return `${brushRadius}°C`;
+  }
 
   
 
