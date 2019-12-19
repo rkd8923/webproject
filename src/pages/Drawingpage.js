@@ -30,6 +30,16 @@ import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import UndoIcon from '@material-ui/icons/Undo';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Brightness1Icon from '@material-ui/icons/Brightness1';
+import GestureIcon from '@material-ui/icons/Gesture';
+import Slider from '@material-ui/core/Slider';
+
+
+
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -73,7 +83,11 @@ function DrawingPage(props) {
   let userEmail = '';
   const [brushColor, setBrushColor] = useState('#000000');
   const [answer, setAnswer] = useState('');
-  const [reset, setReset] = useState('');
+  function valuetext(value) {
+  return `${value}°C`;
+}
+
+  
 
   const ColorButtonRed = withStyles((theme) => ({
     root: {
@@ -138,68 +152,6 @@ function DrawingPage(props) {
   function DrawingTools() {
     return (
       <div>
-        <Drawer
-          className={classes.drawer}
-          variant="permanent"
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-          anchor="right"
-        >
-          <List>
-            <ListItem button key="hello">
-              <ListItemIcon><InboxIcon /></ListItemIcon>
-              <ListItemText primary="hello" />
-            </ListItem>
-          </List>
-          <ButtonGroup
-            orientation="vertical"
-            color="primary"
-            className={classes.toolbar}
-          >
-            <ColorButtonRed
-              variant="contained"
-              onClick={() => {
-                setBrushColor('#e62b12');
-              }}
-            >
-            Red
-            </ColorButtonRed>
-            <ColorButtonGreen
-              variant="contained"
-              onClick={() => {
-                setBrushColor('#32a628');
-              }}
-            >
-            Green
-            </ColorButtonGreen>
-            <ColorButtonBlue
-              variant="contained"
-              onClick={() => {
-                setBrushColor('#0022ff');
-              }}
-            >
-            Blue
-            </ColorButtonBlue>
-            <ColorButtonYellow
-              variant="contained"
-              onClick={() => {
-                setBrushColor('#ffea00');
-              }}
-            >
-            Yellow
-            </ColorButtonYellow>
-            <ColorButtonBlack
-              variant="contained"
-              onClick={() => {
-                setBrushColor('#000000');
-              }}
-            >
-            Black
-            </ColorButtonBlack>
-          </ButtonGroup>
-        </Drawer>
-
         <ButtonGroup
           orientation="vertical"
           color="primary"
@@ -210,7 +162,7 @@ function DrawingPage(props) {
             onClick={() => {
               setBrushColor('#e62b12');
             }}
-          >
+           >
             Red
           </ColorButtonRed>
           <ColorButtonGreen
@@ -218,7 +170,7 @@ function DrawingPage(props) {
             onClick={() => {
               setBrushColor('#32a628');
             }}
-          >
+           >
             Green
           </ColorButtonGreen>
           <ColorButtonBlue
@@ -226,7 +178,7 @@ function DrawingPage(props) {
             onClick={() => {
               setBrushColor('#0022ff');
             }}
-          >
+           >
             Blue
           </ColorButtonBlue>
           <ColorButtonYellow
@@ -234,7 +186,7 @@ function DrawingPage(props) {
             onClick={() => {
               setBrushColor('#ffea00');
             }}
-          >
+           >
             Yellow
           </ColorButtonYellow>
           <ColorButtonBlack
@@ -242,10 +194,41 @@ function DrawingPage(props) {
             onClick={() => {
               setBrushColor('#000000');
             }}
-          >
+           >
             Black
           </ColorButtonBlack>
         </ButtonGroup>
+
+        
+
+        <IconButton aria-label="Clear All" onClick={() => {
+            currentDrawing.clear();
+          }}>
+          <DeleteIcon />
+        </IconButton>
+
+        <IconButton aria-label="Undo" onClick={() => {
+            currentDrawing.undo();
+          }}>
+          <UndoIcon />
+        </IconButton>
+
+        <IconButton>
+          <Brightness1Icon style={{ color: `${brushColor}` }} />
+        </IconButton>
+
+        <Slider
+          defaultValue={30}
+          getAriaValueText={valuetext}
+          aria-labelledby="discrete-slider"
+          valueLabelDisplay="auto"
+          step={10}
+          marks
+          min={10}
+          max={110}
+        />
+
+        
 
 
         <input
@@ -280,9 +263,22 @@ function DrawingPage(props) {
 
   return (
     <div>
-      <Grid container spacing={3}>
-        <Grid item xs>
-          <Paper className={classes.paper}><DrawingTools /></Paper>
+      <Grid container spacing={3} justify="center">
+        <Grid
+          item xs={1}
+          direction="column"
+          justify="center"
+          alignItems="baseline"
+        >
+          <Grid item xs spacing={3}>
+            <Typography variant="h5" component="h3">
+              This is a sheet of paper.
+            </Typography>
+            <Paper className={classes.paper}><DrawingTools /></Paper>
+          </Grid>
+          <Grid item xs spacing={3}>
+            <Paper className={classes.paper}><DrawingTools /></Paper>
+          </Grid>
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper}>
@@ -304,26 +300,6 @@ function DrawingPage(props) {
           <Paper className={classes.paper}>xs</Paper>
         </Grid>
       </Grid>
-      <div>
-        <DrawingTools />
-      </div>
-      <div>
-        <Container>
-          <Paper className={classes.root}>
-            <CanvasDraw
-              hideGrid
-              ref={(canvasDraw) => (currentDrawing = canvasDraw)}
-              brushColor={brushColor}
-              brushRadius={brushRadius}
-              canvasWidth={canvasWidth}
-              canvasHeight={canvasHeight}
-              lazyRadius={lazyRadius}
-              DrawingTools={DrawingTools}
-              border
-            />
-          </Paper>
-        </Container>
-      </div>
       <div id="form-answer">
         <form
           id="drawing-submission"
