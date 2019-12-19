@@ -131,6 +131,10 @@ function Solve(props) {
               <CanvasDraw
                 disabled
                 hideGrid
+                lazyRadius="0"
+                brushRadius="0"
+                brushColor="#FFFFFF"
+                catenaryColor="#FFFFFF"
                 canvasWidth="1200px"
                 canvasHeight="800px"
                 ref={(canvasDraw) => { (loadableCanvas = canvasDraw); }}
