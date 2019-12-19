@@ -3,26 +3,11 @@ import { Link } from 'react-router-dom';
 import firebase from '../firebase';
 import firebaseDb from '../firebase.db';
 import '../styles/Login.css';
-import LoginForm from '../components/Login/LoginForm'
+import LoginForm from '../components/Login/LoginForm';
 
 const Login = (props) => {
-  const [user, setUser] = useState();
+  const [User, setUser] = useState();
   const [haveId, setHaveId] = useState(false);
-  const googleLogin = async () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    await firebase.auth().signInWithPopup(provider);
-    checkHaveId();
-  }
-  // const logout = async () => {
-  //   firebase.auth().signOut();
-  // }
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      setUser(user);
-    } else {
-      setUser();
-    }
-  });
   const checkHaveId = async () => {
     const users = await firebaseDb.getUserData();
     const usersData = Object.values(users);
@@ -33,7 +18,23 @@ const Login = (props) => {
         }
       });
     }
-  }
+  };
+  const googleLogin = async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    await firebase.auth().signInWithPopup(provider);
+    checkHaveId();
+  };
+  // const logout = async () => {
+  //   firebase.auth().signOut();
+  // }
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      setUser(user);
+    } else {
+      setUser();
+    }
+  });
+
   useEffect(() => {
     checkHaveId();
   }, [props.user]);
@@ -45,25 +46,29 @@ const Login = (props) => {
           Fetch Mind
         </div>
         {
-          (!user)
-          ? (
+          (!User)
+            ? (
               <button className="google-login" onClick={googleLogin}>
                 <img className="google-logo" src="/static/google_logo.png" width="80" />
                 <span>Login with Google</span>
               </button>
-          ) 
-          : (
+            )
+            : (
               (!haveId)
-              ? (<div> <LoginForm user={props.user} setHaveId={setHaveId}/> </div>)
-              : (
+                ? (
+                  <div>
+                    <LoginForm user={props.user} setHaveId={setHaveId} />
+                  </div>
+                )
+                : (
                   <Link to="/home">
                     <button className="enter-button">입장하기</button>
                   </Link>
                 )
-          )
+            )
         }
       </div>
     </div>
   );
-}  
+};
 export default Login;

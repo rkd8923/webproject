@@ -1,9 +1,11 @@
+/* eslint-disable react/button-has-type */
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import firebaseDb from '../firebase.db.js';
-import { database } from 'firebase';
-import '../styles/Solve.css';
 import CanvasDraw from 'react-canvas-draw';
+import { database } from 'firebase';
+import AnswerPop from '../components/solve/answerPop';
+import '../styles/Solve.css';
 import Canvas from '../components/draw/Canvas';
 import DrawingSubject from '../components/draw/DrawingSubject';
 import SubmitDrawing from '../components/draw/SubmitDrawing';
@@ -12,11 +14,14 @@ import SubmitDrawing from '../components/draw/SubmitDrawing';
 // timer는 useEffect 이용해서 구현해야함.
 function Solve(props) {
   const [time, setTime] = useState(0);
+  // let saveData ='';
+  let loadableCanvas;
   const [problem, setProblem] = useState(); // problem은 랜덤으로 선택된 이번에 출제될 문제의 오브젝트
   const [paints, setPaints] = useState([]);
   const [answer, setAnswer] = useState('');
-  const [myData, setMyData] = useState(); // myData는 { id, name, score, solved }를 저장 
-                                          //solved는 내가 해결한 문제의 id들의 list
+  const [myData, setMyData] = useState(); // myData는 { id, name, score, solved }를 저장
+  const [loadPaint, setLoadPaint] = useState('');
+  // solved는 내가 해결한 문제의 id들의 list
   const setMyDatas = async () => {
     if (props.user) {
       const my = await firebaseDb.getMyData(props.user.email);
@@ -43,8 +48,13 @@ function Solve(props) {
     console.log(prob);
     setProblem(prob);
     console.log(problem);
-  };
+  
 
+    // 풀 문제의 이미지를 정하면 아래의 image위치에 넣으세요.
+    localStorage.setItem('savedDrawing', problem.image);
+    setLoadPaint(localStorage.getItem('savedDrawing')); // 이부분은 앞서 결정한 랜덤한 문제를, 현재 캔버스의 값에 덮어 씌우는 줄입니다.
+    console.log('구현예정');
+  };
 
     // imageObject의 정답과 확인 후 정답 여부 알려주기
     // 만약 정답일 경우, user의 데이터(score, solved) 해결해서 push
@@ -85,24 +95,50 @@ function Solve(props) {
     timerText.textContent = `Time: ${time}`;
     return () => clearInterval(timer);
   }, [time]);
+
   // user에 저장된 email을 이용해 myData를 업데이트
   useEffect(() => {
     setMyDatas();
   }, [props.user]);
-  useEffect(() => {
-    selectRandomImage();
+  useEffect(async () => {
+    await selectRandomImage();
+    console.log(problem);
   }, [myData, paints]);
+
+
   return (
     <div id="solve">
       <div id="canvas-box">
-        <span>{}</span>
+        <input
+          type="button"
+          value="그림 불러오기"
+          onClick={() => { //클릭할때마다 다시 로딩합니다.
+            loadableCanvas.loadSaveData(
+              localStorage.getItem('savedDrawing'),
+            );
+            console.log(loadPaint);
+          }}
+          // onClick={() => {
+          //   loadableCanvas.loadSaveData(
+          //     paints,
+          //   );
+          // }}
+        />
+        <CanvasDraw
+          disabled
+          canvasWidth="80%" //너비와 위치는 수정하세요.
+          canvasHeight="800px"
+          hideGrid
+          ref={(canvasDraw) => (loadableCanvas = canvasDraw)}
+          saveData={loadPaint}
+        />
       </div>
       <div id="solve-tools">
         <div className="timer" id="timer">Time: 0</div>
         <div className="answer-box">
           <input
-            className='answer'
-            type='text'
+            className="answer"
+            type="text"
             value={answer}
             onChange={handleAnswer}
           />

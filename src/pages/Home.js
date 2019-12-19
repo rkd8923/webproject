@@ -10,7 +10,7 @@ const Home = (props) => {
       const my = await firebaseDb.getMyData(props.user.email);
       setMyData(my);
     }
-  }
+  };
   useEffect(() => {
     setMyDatas();
   }, [props.user]);
@@ -19,28 +19,46 @@ const Home = (props) => {
   }, [myData]);
   return (
     <div id="home">
-      <div id="home-title">
+      <div id="home-box">
+        <div id="home-title">
         Fetch Mind
-      </div>
-      <div id="main-box">
-        <div id="left-box">
-          {
-            (myData)
-            ? (
-              <div>
-                <div>{myData.name}</div>
-                <div>{myData.score}</div>
-              </div>
-            )
-            : (<div>Loading...</div>)
-          }
         </div>
-        <div id="right-box">
-          <Link to="/drawingpage">drawing</Link>
-          <Link to="/solve">solve</Link>
+        <div id="main-box">
+          <div id="left-box">
+            <div id="left-box-title">
+              내 정보
+            </div>
+            <div id="left-box-content">
+              {
+                (myData)
+                  ? (
+                    <div>
+                      <div>
+                        닉네임 :&nbsp;
+                        {myData.name}
+                      </div>
+                      <div>
+                        내 점수 :&nbsp;
+                        {myData.score}
+                        &nbsp;점
+                      </div>
+                    </div>
+                  )
+                  : (<div>Loading...</div>)
+              }
+            </div>
+          </div>
+          <div id="right-box">
+            <div id="right-box-drawing">
+              <Link to="/drawingpage">문제 출제하기</Link>
+            </div>
+            <div id="right-box-solve">
+              <Link to="/solve">문제 풀기</Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
-}  
+};
 export default Home;
