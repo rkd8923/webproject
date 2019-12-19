@@ -1,8 +1,7 @@
-/* eslint-disable */
 import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import CanvasDraw from 'react-canvas-draw';
 import AnswerModal from '../components/solve/AnswerModal';
-import GiveupModal from '../components/solve/GiveupModal';
 import firebaseDb from '../firebase.db';
 import '../styles/Solve.css';
 
@@ -17,7 +16,6 @@ function Solve(props) {
   const [time, setTime] = useState(0);
   const [loadPaint] = useState('');
   const [myScore, setMyScore] = useState(0);
-  const [giveup, setGiveup] = useState(false);
 
   const setMyDatas = async () => {
     if (props.user) {
@@ -31,9 +29,9 @@ function Solve(props) {
     e.preventDefault();
     setMyAnswer(e.target.value);
   };
-  const getRandomInt = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
+  const getRandomInt = (m, M) => {
+    const min = Math.ceil(m);
+    const max = Math.floor(M);
     return Math.floor(Math.random() * (max - min)) + min;
   };
 
@@ -57,7 +55,7 @@ function Solve(props) {
         score: myS,
       },
     });
-  }
+  };
 
   const checkClear = () => {
     if (answer === myAnswer) {
@@ -69,9 +67,6 @@ function Solve(props) {
     }
   };
 
-  const giveUp = () => {
-    setGiveup(true);
-  };
   useEffect(() => {
     const interval = setInterval(() => {
       if (!clear) {
@@ -90,7 +85,7 @@ function Solve(props) {
       loadableCanvas.loadSaveData(problem.image);
       setAnswer(problem.answer);
     }
-  }, [problem])
+  }, [problem]);
   useEffect(() => {
     setMyDatas();
   }, [props.user]);
@@ -100,17 +95,17 @@ function Solve(props) {
       <div id="canvas-box">
         {
           (problem)
-          ? (
+            ? (
               <CanvasDraw
                 disabled
-                canvasWidth="80%" //너비와 위치는 수정하세요.
+                canvasWidth="80%"
                 canvasHeight="800px"
                 hideGrid
-                ref={(canvasDraw) => (loadableCanvas = canvasDraw)}
+                ref={(canvasDraw) => { (loadableCanvas = canvasDraw); }}
                 saveData={loadPaint}
               />
             )
-          : (
+            : (
               <div>loading...</div>
             )
         }
@@ -126,15 +121,11 @@ function Solve(props) {
           />
           <button className="submitBtn" onClick={checkClear}>제출</button>
         </div>
-        <button className="give-up" onClick={giveUp}>
-          포기
-        </button>
+        <Link className="give-up" to="/home">포기</Link>
       </div>
-      { (clear) ? (<AnswerModal score={myScore} />) : (<div></div>) }
-      { (giveup) ? (<GiveupModal setGiveup={setGiveup} />) : (<div></div>) }
+      { (clear) ? (<AnswerModal score={myScore - myData.score} />) : (<div />) }
     </div>
   );
 }
 
 export default Solve;
-/* eslint-enable */
