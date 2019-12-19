@@ -4,23 +4,19 @@ import CanvasDraw from 'react-canvas-draw';
 import AnswerModal from '../components/solve/AnswerModal';
 import firebaseDb from '../firebase.db';
 import '../styles/Solve.css';
-import Canvas from '../components/draw/Canvas';
-import DrawingSubject from '../components/draw/DrawingSubject';
-import SubmitDrawing from '../components/draw/SubmitDrawing';
-
 
 function Solve(props) {
   let loadableCanvas;
-  const [problem, setProblem] = useState(); // problem은 랜덤으로 선택된 이번에 출제될 문제의 오브젝트
+  const [problem, setProblem] = useState();
   const [answer, setAnswer] = useState('');
   const [myAnswer, setMyAnswer] = useState('');
   const [dbId, setDbId] = useState('');
-  const [myData, setMyData] = useState(); // myData는 { id, name, score, solved }를 저장
+  const [myData, setMyData] = useState();
   const [clear, setClear] = useState(false);
   const [time, setTime] = useState(0);
   const [loadPaint] = useState('');
   const [myScore, setMyScore] = useState(0);
-
+  const [empty, setEmpty] = useState(false);
   const setMyDatas = async () => {
     if (props.user) {
       const my = await firebaseDb.getMyData(props.user.email);
@@ -41,14 +37,44 @@ function Solve(props) {
 
   const selectProblem = useCallback(async () => {
     const response = await firebaseDb.getImageData();
-    const images = Object.values(response);
-    const rand = getRandomInt(0, images.length);
-    setProblem(images[rand]);
-    console.log(images[rand]);
-  }, [problem]);
+    if (!response) {
+      setEmpty(true);
+      return;
+    }
+    const images = Object.entries(response);
+    console.log(images[0], images[1], images[2]);
+    const solved = [];
+    if (myData.solved) {
+      for (let i = 0; i < images.length; i += 1) {
+        if (myData.solved.includes(images[i][0])) {
+          console.log(i, images[i][0]);
+          solved.push(i);
+        }
+      }
+    }
+    const newImages = [];
+    for (let j = 0; j < images.length; j += 1) {
+      if (!solved.includes(j)) {
+        newImages.push(images[j]);
+      }
+    }
+    if (newImages.length === 0) {
+      setEmpty(true);
+    } else {
+      const rand = getRandomInt(0, newImages.length);
+      setProblem(newImages[rand]);
+      console.log(newImages[rand]);
+    }
+  }, [myData]);
 
   const submit = () => {
-    // const mySolved = (myData.solved) ? myData.solved.push(solve)
+    let mySolved = [];
+    if (myData.solved) {
+      mySolved = [...myData.solved, problem[0]];
+    } else {
+      mySolved = [problem[0]];
+    }
+    console.log('mySolved', mySolved);
     const myS = myData.score + (1000 - time);
     setMyScore(myS);
     firebaseDb.pushClearData({
@@ -57,6 +83,7 @@ function Solve(props) {
         id: myData.id,
         name: myData.name,
         score: myS,
+        solved: mySolved,
       },
     });
   };
@@ -67,6 +94,7 @@ function Solve(props) {
       submit();
     } else {
       setClear(false);
+      /* eslint-disable-next-line */
       alert('다시 시도!');
     }
   };
@@ -82,12 +110,14 @@ function Solve(props) {
     };
   }, [time]);
   useEffect(() => {
-    selectProblem();
-  }, []);
+    if (myData !== undefined) {
+      selectProblem();
+    }
+  }, [myData]);
   useEffect(() => {
     if (problem) {
-      loadableCanvas.loadSaveData(problem.image);
-      setAnswer(problem.answer);
+      loadableCanvas.loadSaveData(problem[1].image);
+      setAnswer(problem[1].answer);
     }
   }, [problem]);
   useEffect(() => {
@@ -102,7 +132,7 @@ function Solve(props) {
             ? (
               <CanvasDraw
                 disabled
-                canvasWidth="80%"
+                canvasWidth="1200px"
                 canvasHeight="800px"
                 hideGrid
                 ref={(canvasDraw) => { (loadableCanvas = canvasDraw); }}
@@ -110,7 +140,9 @@ function Solve(props) {
               />
             )
             : (
-              <div>loading...</div>
+              (empty)
+                ? (<div>남은 문제가 없습니다.</div>)
+                : (<div>loading...</div>)
             )
         }
       </div>
