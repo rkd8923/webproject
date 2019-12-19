@@ -1,47 +1,25 @@
-/* eslint-disable */
 import React, { useState } from 'react';
 import CanvasDraw from 'react-canvas-draw';
 import Button from '@material-ui/core/Button';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import {
   red, green, blue, yellow, grey,
 } from '@material-ui/core/colors';
-import Drawer from '@material-ui/core/Drawer';
-import Container from '@material-ui/core/Container';
+import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import firebaseDb from '../firebase.db';
 import '../styles/Drawingpage.css';
 import Paper from '@material-ui/core/Paper';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import UndoIcon from '@material-ui/icons/Undo';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Brightness1Icon from '@material-ui/icons/Brightness1';
-import GestureIcon from '@material-ui/icons/Gesture';
 import Slider from '@material-ui/core/Slider';
 import RoundedCornerTwoToneIcon from '@material-ui/icons/RoundedCornerTwoTone';
 
-
-
-
+import firebaseDb from '../firebase.db';
 
 
 const drawerWidth = 240;
@@ -140,7 +118,7 @@ function DrawingPage(props) {
 
   if (props.user) { // 로그인체크
     userEmail = props.user.email;
-  } 
+  }
   // useEffect(() => {
   //   if (props.user) {
   //     userEmail = props.user.email;
@@ -161,7 +139,7 @@ function DrawingPage(props) {
             onClick={() => {
               setBrushColor('#e62b12');
             }}
-           >
+          >
             Red
           </ColorButtonRed>
           <ColorButtonGreen
@@ -169,7 +147,7 @@ function DrawingPage(props) {
             onClick={() => {
               setBrushColor('#32a628');
             }}
-           >
+          >
             Green
           </ColorButtonGreen>
           <ColorButtonBlue
@@ -177,7 +155,7 @@ function DrawingPage(props) {
             onClick={() => {
               setBrushColor('#0022ff');
             }}
-           >
+          >
             Blue
           </ColorButtonBlue>
           <ColorButtonYellow
@@ -185,7 +163,7 @@ function DrawingPage(props) {
             onClick={() => {
               setBrushColor('#ffea00');
             }}
-           >
+          >
             Yellow
           </ColorButtonYellow>
           <ColorButtonBlack
@@ -193,7 +171,7 @@ function DrawingPage(props) {
             onClick={() => {
               setBrushColor('#000000');
             }}
-           >
+          >
             Black
           </ColorButtonBlack>
         </ButtonGroup>
@@ -203,21 +181,27 @@ function DrawingPage(props) {
           color="default"
           onClick={() => {
             setBrushColor('#FFFFFF');
-          }}>
+          }}
+        >
           <RoundedCornerTwoToneIcon />
         </IconButton>
 
-        
 
-        <IconButton aria-label="Clear All" onClick={() => {
+        <IconButton
+          aria-label="Clear All"
+          onClick={() => {
             currentDrawing.clear();
-          }}>
+          }}
+        >
           <DeleteIcon />
         </IconButton>
 
-        <IconButton aria-label="Undo" onClick={() => {
+        <IconButton
+          aria-label="Undo"
+          onClick={() => {
             currentDrawing.undo();
-          }}>
+          }}
+        >
           <UndoIcon />
         </IconButton>
 
@@ -243,10 +227,12 @@ function DrawingPage(props) {
 
   const onSend = () => {
     image = currentDrawing.getSaveData();
-    //console.log(userEmail, answer, image);
+    // console.log(userEmail, answer, image);
     firebaseDb.pushImageData(userEmail, answer, image);
     setAnswer('');
     currentDrawing.clear();
+    /* eslint-disable-next-line */
+    alert('제출이 완료되었습니다.');
   };
 
 
@@ -254,7 +240,8 @@ function DrawingPage(props) {
     <div>
       <Grid container spacing={3} justify="center">
         <Grid
-          item xs={1}
+          item
+          xs={1}
           direction="column"
           justify="center"
           alignItems="baseline"
@@ -265,15 +252,19 @@ function DrawingPage(props) {
             </Typography>
           </Grid>
           <Grid item xs spacing={3}>
-            
             <Paper className={classes.paper}><DrawingTools /></Paper>
+          </Grid>
+          <Grid>
+            <div className="to-home-box">
+              <Link className="to-home" to="/home">홈으로</Link>
+            </div>
           </Grid>
         </Grid>
         <Grid item xs>
           <Paper className={classes.paper}>
             <CanvasDraw
               hideGrid
-              ref={(canvasDraw) => (currentDrawing = canvasDraw)}
+              ref={(canvasDraw) => { (currentDrawing = canvasDraw); }}
               brushColor={brushColor}
               brushRadius={brushRadius}
               canvasWidth={canvasWidth}
@@ -292,7 +283,9 @@ function DrawingPage(props) {
               <br />
               FetchMind는 여러분이 만드는 창의적 작화 유추 게임입니다.
               <br />
-              이곳에서 여러분은 본인의 머릿속에 떠오르는 바로 그 대상을 그려 다른 사람들이 풀어볼 수 있도록 할 수 있습니다.
+              이곳에서 여러분은 본인의 머릿속에 떠오르는 바로
+              <br />
+              그 대상을 그려 다른 사람들이 풀어볼 수 있도록 할 수 있습니다.
               <br />
               <br />
               본인의 창의력을 맘껏 펼쳐보세요!
@@ -327,47 +320,10 @@ function DrawingPage(props) {
             id="submit-answer"
             variant="contained"
           >
-          제출하기
+            제출하기
           </Button>
         </form>
       </div>
-      <DrawingTools />
-      <CanvasDraw
-        hideGrid
-        ref={(canvasDraw) => { (currentDrawing = canvasDraw); }}
-        brushColor={brushColor}
-        brushRadius={brushRadius}
-        canvasWidth={canvasWidth}
-        canvasHeight={canvasHeight}
-        lazyRadius={lazyRadius}
-        DrawingTools={DrawingTools}
-        saveData={localStorage.getItem('savedDrawing')}
-      />
-      <form
-        id="drawing-submission"
-        onSubmit={(e) => {
-          e.preventDefault();
-          setAnswer(e.target.value);
-          onSend();
-          localStorage.setItem('savedDrawing', image);
-        }}
-      >
-        <input type="text" id="answer-input" value={answer} onChange={(e) => setAnswer(e.target.value)} />
-        <input
-          type="submit"
-          value="save"
-        />
-      </form>
-
-      {/* <CanvasDraw
-        disabled
-        hideGrid
-        ref={canvasDraw => (loadableCanvas = canvasDraw)}
-        saveData={localStorage.getItem("savedDrawing")}
-      /> */}
-
-
-      {/* <Canvas userEmail={userEmail} /> */}
     </div>
   );
 }
