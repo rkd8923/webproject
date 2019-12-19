@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import CanvasDraw from 'react-canvas-draw';
 import Button from '@material-ui/core/Button';
@@ -230,6 +229,7 @@ function DrawingPage(props) {
     firebaseDb.pushImageData(userEmail, answer, image);
     setAnswer('');
     currentDrawing.clear();
+    /* eslint-disable-next-line */
     alert('제출이 완료되었습니다.');
   };
 
@@ -277,7 +277,7 @@ function DrawingPage(props) {
               <br />
               FetchMind는 여러분이 만드는 창의적 작화 유추 게임입니다.
               <br />
-              이곳에서 여러분은 본인의 머릿속에 떠오르는 바로 
+              이곳에서 여러분은 본인의 머릿속에 떠오르는 바로
               <br />
               그 대상을 그려 다른 사람들이 풀어볼 수 있도록 할 수 있습니다.
               <br />
