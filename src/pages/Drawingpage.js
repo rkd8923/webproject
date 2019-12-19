@@ -140,7 +140,7 @@ function DrawingPage(props) {
 
   if (props.user) { // 로그인체크
     userEmail = props.user.email;
-  }
+  } 
   // useEffect(() => {
   //   if (props.user) {
   //     userEmail = props.user.email;
@@ -242,7 +242,7 @@ function DrawingPage(props) {
 
   const onSend = () => {
     image = currentDrawing.getSaveData();
-    console.log(userEmail, answer, image);
+    //console.log(userEmail, answer, image);
     firebaseDb.pushImageData(userEmail, answer, image);
     setAnswer('');
     currentDrawing.clear();
