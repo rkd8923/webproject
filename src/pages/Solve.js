@@ -132,9 +132,9 @@ function Solve(props) {
             ? (
               <CanvasDraw
                 disabled
+                hideGrid
                 canvasWidth="1200px"
                 canvasHeight="800px"
-                hideGrid
                 ref={(canvasDraw) => { (loadableCanvas = canvasDraw); }}
                 saveData={loadPaint}
               />

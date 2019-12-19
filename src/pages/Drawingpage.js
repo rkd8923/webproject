@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* eslint-disable no-return-assign */
-=======
-/* eslint-disable */
->>>>>>> ecd6ab9b87054edbec8d32e89fbff87fa77e1948
 import React, { useState } from 'react';
 import CanvasDraw from 'react-canvas-draw';
 import Button from '@material-ui/core/Button';
