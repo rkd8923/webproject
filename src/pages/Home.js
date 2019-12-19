@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import firebaseDb from '../firebase.db';
+import firebase from '../firebase';
 import '../styles/Home.css';
 
 const Home = (props) => {
@@ -11,12 +12,12 @@ const Home = (props) => {
       setMyData(my.myData);
     }
   };
+  const logout = async () => {
+    firebase.auth().signOut();
+  };
   useEffect(() => {
     setMyDatas();
   }, [props.user]);
-  useEffect(() => {
-    console.log('Home', myData);
-  }, [myData]);
   return (
     <div id="home">
       <div id="home-box">
@@ -32,13 +33,14 @@ const Home = (props) => {
               {
                 (myData)
                   ? (
-                    <div>
+                    <div className="info">
                       <div>
                         {`닉네임: ${myData.name}`}
                       </div>
                       <div>
                         {`내점수: ${myData.score} 점`}
                       </div>
+                      <Link className="logout" onClick={logout} to="/">로그아웃</Link>
                     </div>
                   )
                   : (<div>Loading...</div>)
