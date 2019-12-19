@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import firebaseDb from '../../firebase.db';
 import '../../styles/LoginForm.css';
 
@@ -20,28 +20,27 @@ const LoginForm = (props) => {
       });
       props.setHaveId(true);
     }
-  }
+  };
   return (
     <div className="login-form-box">
       <div className="LoginFormTitle">
         <h1>닉네임 생성</h1>
       </div>
+      <input
+        className="login-input"
+        placeholder="닉네임 입력"
+        value={nickName}
+        onChange={handleNickname}
+      />
+      <div className="CreateNickname">
         <input
-          className="login-input"
-          placeholder="닉네임 입력"
-          value={nickName}
-          onChange={handleNickname}
+          className="login-button"
+          type="button"
+          value="생성"
+          onClick={() => pushUserData()}
         />
-        <div className="CreateNickname">
-          <input
-            className="login-button"
-            type="button"
-            value="생성"
-            onClick={()=>pushUserData()}
-          />
-        </div>
+      </div>
     </div>
   );
-
- }
+};
 export default LoginForm;
