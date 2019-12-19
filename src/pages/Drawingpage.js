@@ -1,47 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import CanvasDraw from 'react-canvas-draw';
 import Button from '@material-ui/core/Button';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import {
   red, green, blue, yellow, grey,
 } from '@material-ui/core/colors';
-import Drawer from '@material-ui/core/Drawer';
-import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import firebaseDb from '../firebase.db';
 import '../styles/Drawingpage.css';
 import Paper from '@material-ui/core/Paper';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import UndoIcon from '@material-ui/icons/Undo';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Brightness1Icon from '@material-ui/icons/Brightness1';
-import GestureIcon from '@material-ui/icons/Gesture';
 import Slider from '@material-ui/core/Slider';
 import RoundedCornerTwoToneIcon from '@material-ui/icons/RoundedCornerTwoTone';
-
-
-
-
+import firebaseDb from '../firebase.db';
 
 
 const drawerWidth = 240;
@@ -140,7 +116,7 @@ function DrawingPage(props) {
 
   if (props.user) { // 로그인체크
     userEmail = props.user.email;
-  } 
+  }
   // useEffect(() => {
   //   if (props.user) {
   //     userEmail = props.user.email;
@@ -160,7 +136,7 @@ function DrawingPage(props) {
             onClick={() => {
               setBrushColor('#e62b12');
             }}
-           >
+          >
             Red
           </ColorButtonRed>
           <ColorButtonGreen
@@ -168,7 +144,7 @@ function DrawingPage(props) {
             onClick={() => {
               setBrushColor('#32a628');
             }}
-           >
+          >
             Green
           </ColorButtonGreen>
           <ColorButtonBlue
@@ -176,7 +152,7 @@ function DrawingPage(props) {
             onClick={() => {
               setBrushColor('#0022ff');
             }}
-           >
+          >
             Blue
           </ColorButtonBlue>
           <ColorButtonYellow
@@ -184,7 +160,7 @@ function DrawingPage(props) {
             onClick={() => {
               setBrushColor('#ffea00');
             }}
-           >
+          >
             Yellow
           </ColorButtonYellow>
           <ColorButtonBlack
@@ -192,7 +168,7 @@ function DrawingPage(props) {
             onClick={() => {
               setBrushColor('#000000');
             }}
-           >
+          >
             Black
           </ColorButtonBlack>
         </ButtonGroup>
@@ -202,21 +178,27 @@ function DrawingPage(props) {
           color="default"
           onClick={() => {
             setBrushColor('#FFFFFF');
-          }}>
+          }}
+        >
           <RoundedCornerTwoToneIcon />
         </IconButton>
 
-        
 
-        <IconButton aria-label="Clear All" onClick={() => {
+        <IconButton
+aria-label="Clear All"
+onClick={() => {
             currentDrawing.clear();
-          }}>
+          }}
+        >
           <DeleteIcon />
         </IconButton>
 
-        <IconButton aria-label="Undo" onClick={() => {
+        <IconButton
+aria-label="Undo"
+onClick={() => {
             currentDrawing.undo();
-          }}>
+          }}
+        >
           <UndoIcon />
         </IconButton>
 
@@ -242,10 +224,11 @@ function DrawingPage(props) {
 
   const onSend = () => {
     image = currentDrawing.getSaveData();
-    //console.log(userEmail, answer, image);
+    // console.log(userEmail, answer, image);
     firebaseDb.pushImageData(userEmail, answer, image);
     setAnswer('');
     currentDrawing.clear();
+    alert('제출이 완료되었습니다.');
   };
 
 
@@ -253,7 +236,8 @@ function DrawingPage(props) {
     <div>
       <Grid container spacing={3} justify="center">
         <Grid
-          item xs={1}
+          item
+xs={1}
           direction="column"
           justify="center"
           alignItems="baseline"
@@ -264,7 +248,7 @@ function DrawingPage(props) {
             </Typography>
           </Grid>
           <Grid item xs spacing={3}>
-            
+
             <Paper className={classes.paper}><DrawingTools /></Paper>
           </Grid>
         </Grid>
