@@ -131,8 +131,8 @@ function Solve(props) {
               <CanvasDraw
                 disabled
                 hideGrid
-                lazyRadius="0"
-                brushRadius="0"
+                lazyRadius={0}
+                brushRadius={0}
                 brushColor="#FFFFFF"
                 catenaryColor="#FFFFFF"
                 canvasWidth="1200px"
