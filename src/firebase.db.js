@@ -1,3 +1,5 @@
+import firebase from './firebase';
+
 const firebaseURL = 'https://fetchmind-6f8d6.firebaseio.com';
 
 const getImageData = async () => {
@@ -22,10 +24,13 @@ const getMyData = async (email) => {
     method: 'GET',
   });
   const data = await response.json();
-  const dataArray = Object.values(data);
+  const dataArray = Object.entries(data);
   dataArray.forEach((user) => {
-    if (user.id === email) {
-      result = user;
+    if (user[1].id === email) {
+      result = {
+        dbId: user[0],
+        myData: user[1],
+      };
     }
   });
   return result;
@@ -33,7 +38,7 @@ const getMyData = async (email) => {
 
 
 const pushUserData = async ({ id, name, score }) => {
-  const response = await fetch(`${firebaseURL}/users.json`, {
+  await fetch(`${firebaseURL}/users.json`, {
     method: 'POST',
     body: JSON.stringify({
       id,
@@ -43,8 +48,8 @@ const pushUserData = async ({ id, name, score }) => {
   });
 };
 
-const pushImageData = async (maker = 'rlatpdnjs', answer, drawing) => {
-  const response = await fetch(`${firebaseURL}/paints.json`, {
+const pushImageData = async (maker, answer, drawing) => {
+  await fetch(`${firebaseURL}/paints.json`, {
     method: 'POST',
     body: JSON.stringify({
       maker: `${maker}`,
@@ -55,10 +60,15 @@ const pushImageData = async (maker = 'rlatpdnjs', answer, drawing) => {
   });
 };
 
+const pushClearData = async ({ userId, userData }) => {
+  firebase.database().ref(`users/${userId}`).set(userData);
+};
+
 export default {
   getImageData,
   getUserData,
   getMyData,
   pushImageData,
   pushUserData,
+  pushClearData,
 };
