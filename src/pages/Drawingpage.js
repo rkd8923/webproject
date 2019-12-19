@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import CanvasDraw from 'react-canvas-draw';
 import firebaseDb from '../firebase.db';
 
@@ -10,7 +9,6 @@ function DrawingPage(props) {
   const lazyRadius = 10;
   const brushRadius = 3;
   let currentDrawing;
-  let loadableCanvas;
   let image;
   let userEmail = '';
   const [brushColor, setBrushColor] = useState('#000000');
@@ -24,7 +22,7 @@ function DrawingPage(props) {
   //     console.log('yoyo', userEmail);
   //   }
   // }, [props.user]);
-  console.log(localStorage.getItem("savedDrawing"));
+  console.log(localStorage.getItem('savedDrawing'));
 
   function DrawingTools() {
     return (
@@ -106,14 +104,14 @@ function DrawingPage(props) {
       <DrawingTools />
       <CanvasDraw
         hideGrid
-        ref={(canvasDraw) => (currentDrawing = canvasDraw)}
+        ref={(canvasDraw) => { (currentDrawing = canvasDraw); }}
         brushColor={brushColor}
         brushRadius={brushRadius}
         canvasWidth={canvasWidth}
         canvasHeight={canvasHeight}
         lazyRadius={lazyRadius}
         DrawingTools={DrawingTools}
-        saveData={localStorage.getItem("savedDrawing")}
+        saveData={localStorage.getItem('savedDrawing')}
       />
       <form
         id="drawing-submission"
@@ -121,7 +119,7 @@ function DrawingPage(props) {
           e.preventDefault();
           setAnswer(e.target.value);
           onSend();
-          localStorage.setItem("savedDrawing", image)
+          localStorage.setItem('savedDrawing', image);
         }}
       >
         <input type="text" id="answer-input" value={answer} onChange={(e) => setAnswer(e.target.value)} />

@@ -1,4 +1,4 @@
-/* eslint-disable react/button-has-type */
+/* eslint-disable */
 import React, { useState, useEffect, useCallback } from 'react';
 import CanvasDraw from 'react-canvas-draw';
 import { database } from 'firebase';
@@ -140,3 +140,4 @@ function Solve(props) {
 }
 
 export default Solve;
+/* eslint-enable */

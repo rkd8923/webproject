@@ -30,7 +30,7 @@ const getMyData = async (email) => {
       result = {
         dbId: user[0],
         myData: user[1],
-      }
+      };
     }
   });
   return result;
@@ -38,7 +38,7 @@ const getMyData = async (email) => {
 
 
 const pushUserData = async ({ id, name, score }) => {
-  const response = await fetch(`${firebaseURL}/users.json`, {
+  await fetch(`${firebaseURL}/users.json`, {
     method: 'POST',
     body: JSON.stringify({
       id,
@@ -49,7 +49,7 @@ const pushUserData = async ({ id, name, score }) => {
 };
 
 const pushImageData = async (maker, answer, drawing) => {
-  const response = await fetch(`${firebaseURL}/paints.json`, {
+  await fetch(`${firebaseURL}/paints.json`, {
     method: 'POST',
     body: JSON.stringify({
       maker: `${maker}`,
@@ -60,10 +60,10 @@ const pushImageData = async (maker, answer, drawing) => {
   });
 };
 
-const pushClearData = async ({userId, userData}) => {
-  console.log('userData', userData)
-  firebase.database().ref('users/'+userId).set(userData);
-}
+const pushClearData = async ({ userId, userData }) => {
+  firebase.database().ref(`users/${userId}`).set(userData);
+};
+
 export default {
   getImageData,
   getUserData,
