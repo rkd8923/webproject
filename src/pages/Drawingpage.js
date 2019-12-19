@@ -39,11 +39,6 @@ import GestureIcon from '@material-ui/icons/Gesture';
 import Slider from '@material-ui/core/Slider';
 import RoundedCornerTwoToneIcon from '@material-ui/icons/RoundedCornerTwoTone';
 
-
-
-
-
-
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -292,7 +287,9 @@ function DrawingPage(props) {
               <br />
               FetchMind는 여러분이 만드는 창의적 작화 유추 게임입니다.
               <br />
-              이곳에서 여러분은 본인의 머릿속에 떠오르는 바로 그 대상을 그려 다른 사람들이 풀어볼 수 있도록 할 수 있습니다.
+              이곳에서 여러분은 본인의 머릿속에 떠오르는 바로 
+              <br />
+              그 대상을 그려 다른 사람들이 풀어볼 수 있도록 할 수 있습니다.
               <br />
               <br />
               본인의 창의력을 맘껏 펼쳐보세요!
@@ -331,43 +328,7 @@ function DrawingPage(props) {
           </Button>
         </form>
       </div>
-      <DrawingTools />
-      <CanvasDraw
-        hideGrid
-        ref={(canvasDraw) => { (currentDrawing = canvasDraw); }}
-        brushColor={brushColor}
-        brushRadius={brushRadius}
-        canvasWidth={canvasWidth}
-        canvasHeight={canvasHeight}
-        lazyRadius={lazyRadius}
-        DrawingTools={DrawingTools}
-        saveData={localStorage.getItem('savedDrawing')}
-      />
-      <form
-        id="drawing-submission"
-        onSubmit={(e) => {
-          e.preventDefault();
-          setAnswer(e.target.value);
-          onSend();
-          localStorage.setItem('savedDrawing', image);
-        }}
-      >
-        <input type="text" id="answer-input" value={answer} onChange={(e) => setAnswer(e.target.value)} />
-        <input
-          type="submit"
-          value="save"
-        />
-      </form>
-
-      {/* <CanvasDraw
-        disabled
-        hideGrid
-        ref={canvasDraw => (loadableCanvas = canvasDraw)}
-        saveData={localStorage.getItem("savedDrawing")}
-      /> */}
-
-
-      {/* <Canvas userEmail={userEmail} /> */}
+      
     </div>
   );
 }

@@ -42,12 +42,10 @@ function Solve(props) {
       return;
     }
     const images = Object.entries(response);
-    console.log(images[0], images[1], images[2]);
     const solved = [];
     if (myData.solved) {
       for (let i = 0; i < images.length; i += 1) {
         if (myData.solved.includes(images[i][0])) {
-          console.log(i, images[i][0]);
           solved.push(i);
         }
       }
